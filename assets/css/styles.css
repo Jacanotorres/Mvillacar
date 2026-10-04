@@ -183,6 +183,17 @@ nav.main-nav a:hover, nav.main-nav a.active{border-color:var(--accent);color:var
 .page-hero h1{font-size:clamp(32px,4.6vw,50px);}
 .page-hero p:not(.kicker){color:var(--muted-on-dark);margin-top:14px;max-width:56ch;font-size:17.5px;}
 
+/* ---------- Video de presentación (inventario) ----------
+   El fondo del video es negro; los bordes se desvanecen para que se
+   funda con el fondo de la página sin que se note el recuadro. */
+.intro-video{padding:28px 0 0;background:var(--ink);}
+.intro-video video{
+  display:block;width:100%;max-width:960px;aspect-ratio:848/480;margin:0 auto;background:var(--ink);
+  -webkit-mask-image:radial-gradient(ellipse 72% 68% at 50% 50%, #000 62%, transparent 100%);
+  mask-image:radial-gradient(ellipse 72% 68% at 50% 50%, #000 62%, transparent 100%);
+}
+.intro-video + .page-hero{padding-top:36px;}
+
 /* ---------- Home hero ---------- */
 .hero{
   position:relative;

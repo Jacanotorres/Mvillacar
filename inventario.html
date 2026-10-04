@@ -33,6 +33,13 @@
 </header>
 <div class="nav-scrim"></div>
 
+<!-- Video de presentación: se reproduce una vez y se queda en el logo -->
+<section class="intro-video" aria-label="Video de presentación de MVillacar">
+  <div class="wrap">
+    <video id="intro-video" src="assets/video/revelacion.mp4" autoplay muted playsinline preload="auto"></video>
+  </div>
+</section>
+
 <section class="page-hero">
   <div class="wrap">
     <p class="kicker">Nuestro inventario</p>
@@ -151,5 +158,17 @@
 <script src="assets/js/db.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/catalog.js"></script>
+<script>
+  /* Con "reducir movimiento" activado no se reproduce el video:
+     se muestra directamente el cuadro final con el logo. */
+  (function(){
+    var video = document.getElementById("intro-video");
+    if(video && window.matchMedia("(prefers-reduced-motion: reduce)").matches){
+      video.removeAttribute("autoplay");
+      video.pause();
+      video.poster = "assets/video/revelacion-final.webp";
+    }
+  })();
+</script>
 </body>
 </html>

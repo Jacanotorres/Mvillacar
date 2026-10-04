@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nosotros — MVillacar</title>
+<meta name="description" content="Conoce a MVillacar: retoma y venta de vehículos de primera.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.webp" alt="MVillacar" class="brand-logo">
+    </a>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+    <nav class="main-nav">
+      <a href="inventario.html">Inventario</a>
+      <a href="vende-tu-carro.html">Vender mi carro</a>
+      <a href="nosotros.html" class="active">Nosotros</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <div class="header-actions">
+      <div class="header-phone" data-hide-if-empty><span>Escríbenos ahora</span><strong data-contact="phone"></strong></div>
+      <a id="header-auth-link" class="btn btn-ghost btn-sm" href="panel.html" hidden>Panel</a>
+      <a class="btn btn-primary" data-wa-text="Hola, quiero más información" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</header>
+<div class="nav-scrim"></div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <p class="kicker">Nosotros</p>
+    <h1>Conoce a MVillacar</h1>
+    <p>Retoma y venta de vehículos de primera.</p>
+  </div>
+</section>
+
+<section id="galeria">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="kicker">Nuestro concesionario</p>
+      <h2>Conoce nuestras instalaciones</h2>
+    </div>
+    <div class="gallery-grid" id="gallery-grid"></div>
+  </div>
+</section>
+
+<section class="bg-card" id="clientes-felices">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="kicker">Clientes felices</p>
+      <h2>Nuestros clientes</h2>
+    </div>
+    <div class="team-grid" id="clientes-grid-all"></div>
+  </div>
+</section>
+
+<section id="equipo">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="kicker">Conoce nuestro equipo</p>
+      <h2>Personas que te ayudan a encontrar tu próximo carro</h2>
+      <p>Cuéntanos qué estás buscando, cuál es tu presupuesto y qué necesitas de tu próximo carro.</p>
+    </div>
+    <div class="team-grid team-grid-3" id="team-grid-full"></div>
+  </div>
+</section>
+
+<section class="cta" data-hide-if-empty>
+  <div class="wrap">
+    <h2>¿Necesitas ayuda?</h2>
+    <p>Nuestro equipo está listo para ayudarte a encontrar opciones.</p>
+    <div class="cta-actions">
+      <a class="btn btn-on-dark" data-wa-text="Hola, necesito ayuda para encontrar mi próximo carro" target="_blank" rel="noopener">Hablar con un asesor</a>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <img src="assets/img/logo.webp" alt="MVillacar" class="brand-logo">
+        </a>
+        <p>Tu próximo vehículo está aquí.</p>
+      </div>
+      <div class="footer-col"><h4>Vehículos</h4><ul>
+        <li><a href="inventario.html">Inventario</a></li>
+        <li><a href="index.html#recien-llegados">Recién llegados</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="nosotros.html#clientes-felices">Clientes felices</a></li>
+        <li><a href="nosotros.html#equipo">Nuestro equipo</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contacto</h4><ul>
+        <li><a href="vende-tu-carro.html">Vende tu carro</a></li>
+        <li><a href="contacto.html">Contáctanos</a></li>
+      </ul></div>
+      <div class="footer-col" data-hide-if-empty><h4>Síguenos</h4><ul>
+        <li><a data-social="instagram" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a data-social="tiktok" target="_blank" rel="noopener">TikTok</a></li>
+        <li><a data-social="facebook" target="_blank" rel="noopener">Facebook</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span data-year></span> MVillacar</p>
+      <div class="footer-legal">
+        <a href="login.html">Acceso interno</a>
+        <a href="#">Política de privacidad</a>
+        <a href="#">Tratamiento de datos personales</a>
+        <a href="#">Términos y condiciones</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a class="float-wa" data-wa-text="Hola, quiero más información" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M17.6 6.32A8.87 8.87 0 0 0 12.05 4a8.94 8.94 0 0 0-7.75 13.4L3 21l3.7-1.28a8.9 8.9 0 0 0 5.35 1.75h.01a8.94 8.94 0 0 0 5.55-16.15Z" fill="#fff"/><path d="M9.1 8.6c-.16-.36-.33-.37-.48-.37h-.4a.78.78 0 0 0-.58.27c-.2.22-.77.75-.77 1.83s.79 2.12.9 2.27c.11.15 1.55 2.5 3.83 3.4 1.9.75 2.28.6 2.7.56.42-.03 1.35-.55 1.54-1.08.19-.53.19-.98.13-1.08-.06-.1-.2-.15-.42-.27-.22-.11-1.35-.67-1.55-.74-.21-.08-.36-.11-.51.11-.15.22-.58.74-.71.9-.13.15-.26.16-.48.05-.22-.11-.94-.35-1.79-1.1a6.7 6.7 0 0 1-1.24-1.55c-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.4.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.4-.06-.11-.5-1.28-.7-1.76Z" fill="#2F5233"/></svg>
+</a>
+
+<div class="float-stack float-stack-left">
+  <a class="float-btn" data-social="tiktok" target="_blank" rel="noopener" aria-label="Síguenos en TikTok">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 3v10.5a3.5 3.5 0 1 1-2.5-3.36" stroke="#2178FF" stroke-width="1.8" stroke-linecap="round"/><path d="M14 3c.4 2.2 2 3.8 4.2 4" stroke="#2178FF" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </a>
+  <a class="float-btn" data-social="facebook" target="_blank" rel="noopener" aria-label="Síguenos en Facebook">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 8.5h2V5.5h-2c-1.9 0-3.2 1.4-3.2 3.4v1.8H9v3h1.8V21h3v-7.3h2l.5-3h-2.5V9.2c0-.5.3-.7.7-.7Z" fill="#2178FF"/></svg>
+  </a>
+  <a class="float-btn" data-social="instagram" target="_blank" rel="noopener" aria-label="Síguenos en Instagram">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#2178FF" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="#2178FF" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.1" fill="#2178FF"/></svg>
+  </a>
+</div>
+
+<a class="float-maps" data-social="maps" target="_blank" rel="noopener" aria-label="Cómo llegar en Google Maps">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z" stroke="#2178FF" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.4" stroke="#2178FF" stroke-width="1.8"/></svg>
+</a>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/db.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  /* Proporción alto/ancho de una foto o video de la galería (para armar el
+     collage). Si no carga en 5 segundos se asume 4:3. */
+  function mediaRatio(g){
+    return new Promise(function(resolve){
+      const timer = setTimeout(function(){ resolve(0.75); }, 5000);
+      function done(w, h){ clearTimeout(timer); resolve(w && h ? h / w : 0.75); }
+      if(g.tipo === "video"){
+        const v = document.createElement("video");
+        v.preload = "metadata";
+        v.muted = true;
+        v.onloadedmetadata = function(){ done(v.videoWidth, v.videoHeight); };
+        v.onerror = function(){ done(0, 0); };
+        v.src = g.url;
+      } else {
+        const img = new Image();
+        img.onload = function(){ done(img.naturalWidth, img.naturalHeight); };
+        img.onerror = function(){ done(0, 0); };
+        img.src = g.url;
+      }
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", async function(){
+    /* Galería tipo collage: cada foto o video conserva su proporción (los
+       videos verticales se ven completos, sin bordes) y se reparte en
+       columnas, siempre en la más corta, respetando el orden del panel.
+       Los videos se ven ahí mismo; las fotos se abren en grande. */
+    const galleryGrid = document.getElementById("gallery-grid");
+    const gallery = await fetchGallery();
+    if(gallery.length === 0){
+      galleryGrid.closest("section").hidden = true;
+    } else {
+      const ratios = await Promise.all(gallery.map(mediaRatio));
+      const items = gallery.map(function(g, i){
+        return {
+          ratio: ratios[i],
+          html: g.tipo === "video"
+            ? '<div class="gallery-item gallery-video"><video src="' + g.url + '#t=0.5" controls playsinline preload="metadata"></video></div>'
+            : '<button type="button" class="gallery-item" data-full="' + g.url + '" aria-label="Ver foto en grande"><img src="' + g.url + '" alt="Instalaciones de MVillacar"></button>'
+        };
+      });
+
+      let columns = 0;
+      function layoutGallery(){
+        const n = window.innerWidth <= 520 ? 1 : window.innerWidth <= 820 ? 2 : 3;
+        if(n === columns) return;   /* solo se rearma si cambia el número de columnas */
+        columns = n;
+        const heights = new Array(n).fill(0);
+        const cols = Array.from({ length: n }, function(){ return []; });
+        items.forEach(function(item){
+          const shortest = heights.indexOf(Math.min.apply(null, heights));
+          cols[shortest].push(item.html);
+          heights[shortest] += item.ratio;
+        });
+        galleryGrid.innerHTML = cols.map(function(c){ return '<div class="gallery-col">' + c.join("") + '</div>'; }).join("");
+      }
+      layoutGallery();
+      window.addEventListener("resize", layoutGallery);
+    }
+    galleryGrid.addEventListener("click", function(e){
+      const item = e.target.closest("[data-full]");
+      if(!item) return;
+      const box = document.createElement("div");
+      box.className = "lightbox";
+      box.innerHTML = '<img src="' + item.getAttribute("data-full") + '" alt="Instalaciones de MVillacar">' +
+        '<button type="button" class="lightbox-close" aria-label="Cerrar">×</button>';
+      function close(){ box.remove(); document.removeEventListener("keydown", onKey); }
+      function onKey(ev){ if(ev.key === "Escape") close(); }
+      box.addEventListener("click", close);
+      document.addEventListener("keydown", onKey);
+      document.body.appendChild(box);
+    });
+
+    const happyClients = await fetchHappyClients();
+    fillOrHideSection(document.getElementById("clientes-grid-all"), renderClientPhotos(happyClients));
+
+    const team = await fetchTeam();
+    fillOrHideSection(document.getElementById("team-grid-full"), team.map(function(m){
+        const photo = m.foto
+          ? '<img src="' + m.foto + '" alt="' + m.nombre + '">'
+          : carIconSVG();
+        return '<div class="team-card">' +
+          '<div class="team-photo' + (m.foto ? ' has-photo' : '') + '">' + photo + '</div>' +
+          '<div class="team-body">' +
+            '<h3>' + m.nombre + '</h3>' +
+            '<p class="role">' + m.cargo + '</p>' +
+            '<a class="btn btn-ghost btn-sm btn-block" href="' + waLinkTo(m.whatsapp, "Hola, quiero hablar con " + m.nombre) + '" target="_blank" rel="noopener">WhatsApp</a>' +
+          '</div>' +
+        '</div>';
+      }).join(""));
+  });
+</script>
+</body>
+</html>

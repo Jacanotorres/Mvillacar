@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iniciar sesión — MVillacar</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.webp" alt="MVillacar" class="brand-logo">
+    </a>
+  </div>
+</header>
+
+<section class="section-tight">
+  <div class="wrap" style="max-width:420px;">
+    <div class="section-head center">
+      <p class="kicker">Acceso interno</p>
+      <h2>Iniciar sesión</h2>
+      <p>Para administradores y asesores. Si eres visitante, no necesitas una cuenta para navegar el sitio.</p>
+    </div>
+    <div class="form-card">
+      <form id="login-form">
+        <div class="form-grid">
+          <div class="full"><label for="l-email">Correo</label><input id="l-email" type="email" required autocomplete="username"></div>
+          <div class="full"><label for="l-password">Contraseña</label><input id="l-password" type="password" required autocomplete="current-password"></div>
+        </div>
+        <p id="login-error" class="form-note" style="color:var(--red);display:none;"></p>
+        <button type="submit" id="login-submit" class="btn btn-primary btn-block" style="margin-top:22px;">Entrar</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-bottom">
+      <p>© <span data-year></span> MVillacar</p>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", async function(){
+    /* Si ya hay sesión, ir directo al panel */
+    const profile = await getCurrentProfile();
+    if(profile){ window.location.href = "panel.html"; return; }
+
+    const form = document.getElementById("login-form");
+    const submitBtn = document.getElementById("login-submit");
+    const errorEl = document.getElementById("login-error");
+
+    form.addEventListener("submit", async function(e){
+      e.preventDefault();
+      errorEl.style.display = "none";
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Entrando...";
+
+      const email = document.getElementById("l-email").value;
+      const password = document.getElementById("l-password").value;
+      const { error } = await signIn(email, password);
+
+      if(error){
+        errorEl.textContent = "Correo o contraseña incorrectos.";
+        errorEl.style.display = "block";
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Entrar";
+        return;
+      }
+
+      const loggedProfile = await getCurrentProfile();
+      if(!loggedProfile){
+        errorEl.textContent = "Tu cuenta no tiene un rol asignado. Contacta al administrador.";
+        errorEl.style.display = "block";
+        await signOut();
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Entrar";
+        return;
+      }
+
+      window.location.href = "panel.html";
+    });
+  });
+</script>
+</body>
+</html>

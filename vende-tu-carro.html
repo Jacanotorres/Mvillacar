@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vende tu carro — MVillacar</title>
+<meta name="description" content="¿Quieres vender tu carro? Cuéntanos sobre tu vehículo y un asesor de MVillacar se pondrá en contacto contigo.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.webp" alt="MVillacar" class="brand-logo">
+    </a>
+    <button class="nav-toggle" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
+    <nav class="main-nav">
+      <a href="inventario.html">Inventario</a>
+      <a href="vende-tu-carro.html" class="active">Vender mi carro</a>
+      <a href="nosotros.html">Nosotros</a>
+      <a href="contacto.html">Contacto</a>
+    </nav>
+    <div class="header-actions">
+      <div class="header-phone" data-hide-if-empty><span>Escríbenos ahora</span><strong data-contact="phone"></strong></div>
+      <a id="header-auth-link" class="btn btn-ghost btn-sm" href="panel.html" hidden>Panel</a>
+      <a class="btn btn-primary" data-wa-text="Hola, quiero vender mi carro" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</header>
+<div class="nav-scrim"></div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <p class="kicker">Retoma y venta</p>
+    <h1>Cuéntanos sobre tu vehículo</h1>
+    <p>¿Quieres vender tu carro o entregarlo en retoma? Déjanos sus datos y uno de nuestros asesores se pondrá en contacto contigo.</p>
+  </div>
+</section>
+
+<section class="section-tight">
+  <div class="wrap">
+    <div class="sell-layout">
+      <div>
+        <div class="section-head">
+          <p class="kicker">Formulario</p>
+          <h2>Datos de tu vehículo</h2>
+          <p>Entre más completa sea la información, más fácil será para nuestro equipo darte una respuesta.</p>
+          <p data-wa-only>Al enviarlo se abrirá WhatsApp con tu información lista para enviar.</p>
+        </div>
+      </div>
+      <div class="form-card">
+        <form id="sell-form">
+          <div class="form-grid">
+            <div class="full"><label for="s-nombre">Nombre</label><input id="s-nombre" type="text" required></div>
+            <div class="full"><label for="s-celular">Número de celular</label><input id="s-celular" type="tel" required></div>
+            <div><label for="s-marca">Marca</label><input id="s-marca" type="text" required></div>
+            <div><label for="s-linea">Línea</label><input id="s-linea" type="text" required></div>
+            <div><label for="s-modelo">Modelo (año)</label><input id="s-modelo" type="number" required></div>
+            <div><label for="s-km">Kilometraje</label><input id="s-km" type="number" required></div>
+            <div><label for="s-placa">Placa</label><input id="s-placa" type="text"></div>
+            <div><label for="s-ciudad">Ciudad</label><input id="s-ciudad" type="text" required></div>
+            <div class="full"><label for="s-precio">Precio esperado</label><input id="s-precio" type="text" placeholder="Ej: $50.000.000"></div>
+            <div class="full" data-wa-only>
+              <label>Fotografías del vehículo</label>
+              <div class="file-drop">Adjunta las fotos directamente en la conversación de WhatsApp que se abrirá al enviar este formulario.</div>
+            </div>
+          </div>
+          <button type="submit" id="sell-form-submit" class="btn btn-primary btn-block" style="margin-top:22px;">Quiero vender mi carro</button>
+          <p id="sell-form-status" class="form-note" style="color:var(--accent-light);font-weight:700;" hidden></p>
+          <p class="form-note" data-wa-only>Al enviar, se abrirá WhatsApp con un mensaje prellenado con los datos de tu vehículo para que puedas confirmarlo y adjuntar tus fotos.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="brand" href="index.html">
+          <img src="assets/img/logo.webp" alt="MVillacar" class="brand-logo">
+        </a>
+        <p>Tu próximo vehículo está aquí.</p>
+      </div>
+      <div class="footer-col"><h4>Vehículos</h4><ul>
+        <li><a href="inventario.html">Inventario</a></li>
+        <li><a href="index.html#recien-llegados">Recién llegados</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="nosotros.html#clientes-felices">Clientes felices</a></li>
+        <li><a href="nosotros.html#equipo">Nuestro equipo</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contacto</h4><ul>
+        <li><a href="vende-tu-carro.html">Vende tu carro</a></li>
+        <li><a href="contacto.html">Contáctanos</a></li>
+      </ul></div>
+      <div class="footer-col" data-hide-if-empty><h4>Síguenos</h4><ul>
+        <li><a data-social="instagram" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a data-social="tiktok" target="_blank" rel="noopener">TikTok</a></li>
+        <li><a data-social="facebook" target="_blank" rel="noopener">Facebook</a></li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <p>© <span data-year></span> MVillacar</p>
+      <div class="footer-legal">
+        <a href="login.html">Acceso interno</a>
+        <a href="#">Política de privacidad</a>
+        <a href="#">Tratamiento de datos personales</a>
+        <a href="#">Términos y condiciones</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<a class="float-wa" data-wa-text="Hola, quiero vender mi carro" target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+  <svg width="30" height="30" viewBox="0 0 24 24" fill="none"><path d="M17.6 6.32A8.87 8.87 0 0 0 12.05 4a8.94 8.94 0 0 0-7.75 13.4L3 21l3.7-1.28a8.9 8.9 0 0 0 5.35 1.75h.01a8.94 8.94 0 0 0 5.55-16.15Z" fill="#fff"/><path d="M9.1 8.6c-.16-.36-.33-.37-.48-.37h-.4a.78.78 0 0 0-.58.27c-.2.22-.77.75-.77 1.83s.79 2.12.9 2.27c.11.15 1.55 2.5 3.83 3.4 1.9.75 2.28.6 2.7.56.42-.03 1.35-.55 1.54-1.08.19-.53.19-.98.13-1.08-.06-.1-.2-.15-.42-.27-.22-.11-1.35-.67-1.55-.74-.21-.08-.36-.11-.51.11-.15.22-.58.74-.71.9-.13.15-.26.16-.48.05-.22-.11-.94-.35-1.79-1.1a6.7 6.7 0 0 1-1.24-1.55c-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.4.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.4-.06-.11-.5-1.28-.7-1.76Z" fill="#2F5233"/></svg>
+</a>
+
+<div class="float-stack float-stack-left">
+  <a class="float-btn" data-social="tiktok" target="_blank" rel="noopener" aria-label="Síguenos en TikTok">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 3v10.5a3.5 3.5 0 1 1-2.5-3.36" stroke="#2178FF" stroke-width="1.8" stroke-linecap="round"/><path d="M14 3c.4 2.2 2 3.8 4.2 4" stroke="#2178FF" stroke-width="1.8" stroke-linecap="round"/></svg>
+  </a>
+  <a class="float-btn" data-social="facebook" target="_blank" rel="noopener" aria-label="Síguenos en Facebook">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 8.5h2V5.5h-2c-1.9 0-3.2 1.4-3.2 3.4v1.8H9v3h1.8V21h3v-7.3h2l.5-3h-2.5V9.2c0-.5.3-.7.7-.7Z" fill="#2178FF"/></svg>
+  </a>
+  <a class="float-btn" data-social="instagram" target="_blank" rel="noopener" aria-label="Síguenos en Instagram">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="#2178FF" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="#2178FF" stroke-width="1.8"/><circle cx="17.2" cy="6.8" r="1.1" fill="#2178FF"/></svg>
+  </a>
+</div>
+
+<a class="float-maps" data-social="maps" target="_blank" rel="noopener" aria-label="Cómo llegar en Google Maps">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21Z" stroke="#2178FF" stroke-width="1.8" stroke-linejoin="round"/><circle cx="12" cy="9.5" r="2.4" stroke="#2178FF" stroke-width="1.8"/></svg>
+</a>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/js/supabase-client.js"></script>
+<script src="assets/js/data.js"></script>
+<script src="assets/js/main.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(){
+    var form = document.getElementById("sell-form");
+    var submitBtn = document.getElementById("sell-form-submit");
+
+    form.addEventListener("submit", async function(e){
+      e.preventDefault();
+
+      var nombre = document.getElementById("s-nombre").value;
+      var celular = document.getElementById("s-celular").value;
+      var marca = document.getElementById("s-marca").value;
+      var linea = document.getElementById("s-linea").value;
+      var modelo = document.getElementById("s-modelo").value;
+      var km = document.getElementById("s-km").value;
+      var placa = document.getElementById("s-placa").value;
+      var ciudad = document.getElementById("s-ciudad").value;
+      var precio = document.getElementById("s-precio").value;
+
+      var msg = "Hola, quiero vender mi carro:\n" +
+        "Nombre: " + nombre + "\n" +
+        "Celular: " + celular + "\n" +
+        "Marca: " + marca + "\n" +
+        "Línea: " + linea + "\n" +
+        "Modelo: " + modelo + "\n" +
+        "Kilometraje: " + km + "\n" +
+        "Placa: " + placa + "\n" +
+        "Ciudad: " + ciudad + "\n" +
+        "Precio esperado: " + precio;
+
+      /* Con WhatsApp configurado, se abre la pestaña ya mismo (dentro del
+         clic del usuario) para que el navegador no la bloquee como pop-up;
+         se redirige a WhatsApp cuando termine de guardar en Supabase
+         (o si falla, igual se redirige). */
+      var waWindow = WHATSAPP_NUMBER ? window.open("", "_blank") : null;
+      var status = document.getElementById("sell-form-status");
+      status.hidden = true;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Enviando...";
+
+      var saved = false;
+      try {
+        var res = await supabaseClient.from("vende_tu_carro").insert({
+          nombre: nombre,
+          celular: celular,
+          marca: marca,
+          linea: linea,
+          modelo: modelo ? parseInt(modelo, 10) : null,
+          kilometraje: km ? parseInt(km, 10) : null,
+          placa: placa,
+          ciudad: ciudad,
+          precio_esperado: precio
+        });
+        saved = !res.error;
+        if(res.error) console.error("No se pudo guardar en Supabase:", res.error);
+      } catch(err){
+        console.error("No se pudo guardar en Supabase:", err);
+      }
+
+      if (waWindow) {
+        waWindow.location.href = waLink(msg);
+      } else if (WHATSAPP_NUMBER) {
+        window.open(waLink(msg), "_blank", "noopener");
+      } else {
+        /* Sin WhatsApp, el formulario solo queda guardado: se le confirma al usuario. */
+        status.textContent = saved
+          ? "Recibimos tu información. Uno de nuestros asesores se pondrá en contacto contigo."
+          : "No pudimos enviar tu información. Por favor inténtalo de nuevo más tarde.";
+        status.hidden = false;
+        if(saved) form.reset();
+      }
+
+      submitBtn.disabled = false;
+      submitBtn.textContent = "Quiero vender mi carro";
+    });
+  });
+</script>
+</body>
+</html>

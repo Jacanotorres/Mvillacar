@@ -7,7 +7,7 @@
    Mientras estas dos constantes estén vacías, el sitio funciona sin base de
    datos: el inventario y las demás secciones dinámicas simplemente se ocultan. */
 const SUPABASE_URL = "";
-const SUPABASE_PUBLIC_KEY = "";
+const SUPABASE_PUBLIC_KEY = "sb_publishable_k5ATvOE-emm81Q73-wrN3Q_7epojgUO";
 
 const supabaseClient = (SUPABASE_URL && SUPABASE_PUBLIC_KEY)
   ? supabase.createClient(SUPABASE_URL, SUPABASE_PUBLIC_KEY)

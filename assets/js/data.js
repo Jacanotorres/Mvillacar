@@ -9,16 +9,16 @@
    sitio: sus botones, enlaces y bloques se ocultan solos (main.js).
    ========================================================= */
 
-const WHATSAPP_NUMBER = "";        // solo dígitos, con indicativo del país (ej. "573001234567")
-const CONTACT_PHONE_DISPLAY = "";  // como se muestra en el sitio (ej. "+57 300 123 4567")
+const WHATSAPP_NUMBER = "573186651831";             // solo dígitos, con indicativo del país
+const CONTACT_PHONE_DISPLAY = "+57 318 665 1831";  // como se muestra en el sitio
 const CONTACT_EMAIL = "";
 const CONTACT_ADDRESS = "";
-const CONTACT_HOURS = "";          // ej. "Lunes a sábado, 8:00 a.m. – 6:00 p.m."
+const CONTACT_HOURS = "Lunes a viernes, 8:00 a.m. – 6:00 p.m. · Sábados, 8:00 a.m. – 3:30 p.m.";
 
 const SOCIAL_LINKS = {
-  instagram: "",
-  tiktok: "",
-  facebook: "",
+  instagram: "https://www.instagram.com/mvillacaroficial/",
+  tiktok: "https://www.tiktok.com/@mvillacaroficial",
+  facebook: "https://www.facebook.com/MVillacaroficial/",
   maps: ""                         // enlace de Google Maps de la sede
 };
 

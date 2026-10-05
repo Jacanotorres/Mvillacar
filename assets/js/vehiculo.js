@@ -73,6 +73,9 @@ async function renderVehicleDetail(){
         '<h1 style="font-size:26px;margin-bottom:4px;">' + v.marca + ' ' + v.linea + '</h1>' +
         '<div class="veh-quick-specs"><span>' + v.modelo + '</span></div>' +
         '<div class="veh-price-wrap"><span class="veh-price">' + formatPrice(v.precio) + '</span></div>' +
+        (WHATSAPP_NUMBER
+          ? '<p style="margin:-8px 0 20px;"><a class="link-arrow" href="' + waLink("Hola, quiero información sobre financiación para el " + v.marca + " " + v.linea + " " + v.modelo) + '" target="_blank" rel="noopener">¿Necesitas financiación? Pregúntanos →</a></p>'
+          : "") +
         contactHTML +
       '</aside>' +
     '</div>';

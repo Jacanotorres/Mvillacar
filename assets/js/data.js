@@ -25,6 +25,12 @@ const SOCIAL_LINKS = {
 /* Mapa incrustado de la página de contacto. Vacío = no se muestra el mapa. */
 const MAP_EMBED_URL = "";
 
+/* Parámetros del simulador de financiación (financiacion.html).
+   OJO: la tasa es un valor de referencia; confirmarla con MVillacar. */
+const FINANCE_RATE_EA = 0.22;                    /* tasa efectiva anual (22 %) */
+const FINANCE_TERMS = [12, 24, 36, 48, 60, 72];  /* plazos en meses */
+const FINANCE_MAX_INITIAL = 70;                  /* cuota inicial máxima (% del valor) */
+
 function waLink(message){
   return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(message);
 }
@@ -40,4 +46,23 @@ function formatPrice(n){
 }
 function formatKm(n){
   return n.toLocaleString("es-CO") + " km";
+}
+
+/* Logos de marca (assets/img/marcas/, en blanco). Se busca por el nombre de la
+   marca sin tildes, espacios ni guiones ("Mercedes-Benz" -> "mercedesbenz").
+   Para agregar una marca nueva: guarda su logo en esa carpeta y súmalo aquí.
+   Las marcas sin logo se muestran con un emblema de sus iniciales. */
+const BRAND_LOGO_FILES = ["acura.svg", "alfaromeo.svg", "astonmartin.svg", "audi.svg", "bentley.svg", "bmw.svg", "byd.png", "cadillac.svg", "chevrolet.svg", "citroen.svg", "dacia.svg", "ferrari.svg", "fiat.svg", "ford.svg", "honda.svg", "hyundai.svg", "infiniti.svg", "jaguar.svg", "jeep.svg", "kia.svg", "lamborghini.svg", "landrover.svg", "mahindra.svg", "maserati.svg", "mazda.svg", "mclaren.svg", "mercedes.svg", "mg.svg", "mini.svg", "mitsubishi.svg", "nissan.svg", "opel.svg", "peugeot.svg", "polestar.svg", "porsche.svg", "ram.svg", "renault.svg", "rollsroyce.svg", "seat.svg", "skoda.svg", "smart.svg", "subaru.svg", "suzuki.svg", "tata.svg", "tesla.svg", "toyota.svg", "vauxhall.svg", "volkswagen.svg", "volvo.svg"];
+const BRAND_ALIASES = {
+  mercedesbenz: "mercedes", mercedes: "mercedes", vw: "volkswagen", chevy: "chevrolet",
+  rangerover: "landrover", ssangyong: "ssangyong", kiamotors: "kia", alfa: "alfaromeo"
+};
+function brandKey(marca){
+  return String(marca).toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+}
+function brandLogoUrl(marca){
+  const key = brandKey(marca);
+  const slug = BRAND_ALIASES[key] || key;
+  const file = BRAND_LOGO_FILES.find(function(f){ return f.split(".")[0] === slug; });
+  return file ? "assets/img/marcas/" + file : "";
 }

@@ -3,11 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MVillacar — Retoma y venta de vehículos</title>
+<title>MVillacar — Retoma y venta de vehículos en Cali</title>
 <meta name="description" content="MVillacar: retoma y venta de vehículos de primera en Cali desde 2009, con financiación. Explora nuestro inventario y encuentra tu próximo carro.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
 <body>
@@ -21,17 +24,19 @@
     <nav class="main-nav">
       <a href="inventario.html">Inventario</a>
       <a href="vende-tu-carro.html">Vender mi carro</a>
+      <a href="financiacion.html">Financiación</a>
       <a href="nosotros.html">Nosotros</a>
       <a href="contacto.html">Contacto</a>
+      <a href="panel.html" class="nav-panel-link">Panel</a>
     </nav>
     <div class="header-actions">
       <div class="header-phone" data-hide-if-empty>
         <span>Escríbenos ahora</span>
         <strong data-contact="phone"></strong>
       </div>
-      <a id="header-auth-link" class="btn btn-ghost btn-sm" href="panel.html" hidden>Panel</a>
-      <a class="btn btn-primary" data-wa-text="Hola, quiero más información sobre MVillacar" target="_blank" rel="noopener">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M17.6 6.32A8.87 8.87 0 0 0 12.05 4a8.94 8.94 0 0 0-7.75 13.4L3 21l3.7-1.28a8.9 8.9 0 0 0 5.35 1.75h.01a8.94 8.94 0 0 0 5.55-16.15Z" stroke="#fff" stroke-width="1.4"/></svg>
+      <a id="header-auth-link" class="btn btn-ghost btn-sm" href="panel.html">Panel</a>
+      <a class="btn btn-primary btn-sm" data-wa-text="Hola, quiero más información sobre MVillacar" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M17.6 6.32A8.87 8.87 0 0 0 12.05 4a8.94 8.94 0 0 0-7.75 13.4L3 21l3.7-1.28a8.9 8.9 0 0 0 5.35 1.75h.01a8.94 8.94 0 0 0 5.55-16.15Z" stroke="currentColor" stroke-width="1.6"/></svg>
         WhatsApp
       </a>
     </div>
@@ -39,22 +44,56 @@
 </header>
 <div class="nav-scrim"></div>
 
-<!-- 1. Banner principal -->
+<!-- 1. Portada: foto, titular y buscador -->
 <section class="hero">
   <div class="wrap">
     <div class="hero-copy">
-      <img src="assets/img/logo.webp" alt="" class="hero-logo">
-      <h1>Tu próximo vehículo <span>está aquí</span></h1>
-      <p class="lede">Explora nuestro inventario y encuentra el carro que estás buscando.</p>
-      <div class="hero-cta">
-        <a class="btn btn-primary" href="inventario.html">Ver vehículos</a>
-        <a class="btn btn-ghost" data-wa-text="Hola, quiero más información sobre MVillacar" target="_blank" rel="noopener">Hablar con un asesor</a>
+      <p class="hero-claim">En Cali desde 2009</p>
+      <h1>Tu próximo carro <span>está aquí</span></h1>
+      <p class="lede">Retoma y venta de vehículos de primera, con financiación.</p>
+    </div>
+    <div class="hero-search">
+      <div class="hero-tabs" role="tablist">
+        <button type="button" class="hero-tab active" data-tab="comprar">Comprar</button>
+        <button type="button" class="hero-tab" data-tab="vender">Vender o retomar</button>
+      </div>
+      <form class="hero-search-form" id="hero-search-form" data-panel="comprar">
+        <div><label for="hs-marca">Marca</label><select id="hs-marca"><option value="">Todas las marcas</option></select></div>
+        <div><label for="hs-linea">Modelo</label><input id="hs-linea" type="text" placeholder="Ej. X4, Sportage, Logan..."></div>
+        <div><label for="hs-precio">Precio máximo</label>
+          <select id="hs-precio">
+            <option value="">Cualquier precio</option>
+            <option value="50000000">Hasta $50.000.000</option>
+            <option value="80000000">Hasta $80.000.000</option>
+            <option value="110000000">Hasta $110.000.000</option>
+            <option value="150000000">Hasta $150.000.000</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Buscar</button>
+      </form>
+      <div class="hero-sell-panel" data-panel="vender" hidden>
+        <p>Véndenos tu carro o entrégalo en retoma por uno de nuestro inventario.</p>
+        <a class="btn btn-primary" href="vende-tu-carro.html">Cuéntanos de tu carro</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- 2. Recién llegados -->
+<!-- 2. Busca por marca -->
+<section id="marcas">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="kicker">Busca por marca</p>
+      <h2>Las marcas que tenemos disponibles</h2>
+    </div>
+    <div class="brand-grid" id="brand-grid"></div>
+    <div class="brand-marquee" aria-label="Todas las marcas disponibles">
+      <div class="brand-marquee-track" id="brand-chips"></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Recién llegados -->
 <section class="bg-card" id="recien-llegados">
   <div class="wrap">
     <div class="section-head">
@@ -67,35 +106,65 @@
   </div>
 </section>
 
-<!-- 3. Financiación -->
+<!-- Beneficios -->
+<div class="benefits">
+  <div class="wrap">
+    <div class="benefit">
+      <div class="benefit-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg></div>
+      <div><h3>En Cali desde 2009</h3><p>Más de 15 años comprando y vendiendo vehículos.</p></div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h13l-3.5-3.5"/><path d="M20 15H7l3.5 3.5"/></svg></div>
+      <div><h3>Retoma tu carro</h3><p>Entrégalo como parte de pago por el que quieres.</p></div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="6" width="19" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.8"/><path d="M6 9.5v.01M18 14.5v.01"/></svg></div>
+      <div><h3>Financiación</h3><p>Simula tu cuota y te ayudamos con el crédito.</p></div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c.4-3.4 2.7-5.3 6-5.3s5.6 1.9 6 5.3"/><path d="M16.5 5.2a3 3 0 0 1 0 5.6M18.5 14.9c1.5.7 2.4 2.2 2.6 4.1"/></svg></div>
+      <div><h3>Asesoría por WhatsApp</h3><p>Un asesor te ayuda a encontrar tu carro.</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- 4. Financiación -->
 <section id="financiacion">
   <div class="wrap">
-    <div class="section-head center" style="margin-bottom:28px;">
-      <p class="kicker">Financiación</p>
-      <h2>Te ayudamos a <span class="accent-text">financiar tu carro</span></h2>
-      <p>Escríbenos y un asesor te cuenta las opciones de financiación para el vehículo que te interesa.</p>
-    </div>
-    <div class="text-center">
-      <a class="btn btn-primary" data-wa-text="Hola, quiero información sobre financiación para un vehículo" target="_blank" rel="noopener">Preguntar por financiación</a>
+    <div class="promo-band">
+      <div>
+        <p class="kicker">Financiación</p>
+        <h2>Financia tu carro <span class="accent-text">a tu medida</span></h2>
+        <p>Elige el vehículo, el plazo y la cuota inicial, y mira de una vez cuánto pagarías al mes.</p>
+      </div>
+      <div class="promo-actions">
+        <a class="btn btn-primary" href="financiacion.html">Simular mi cuota</a>
+        <a class="btn btn-ghost" data-wa-text="Hola, quiero información sobre financiación para un vehículo" target="_blank" rel="noopener">Preguntar por WhatsApp</a>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- 4. Retoma / vende tu carro -->
+<!-- 5. Retoma / vende tu carro -->
 <section class="bg-card" id="vende-tu-carro">
   <div class="wrap">
-    <div class="section-head center" style="margin-bottom:28px;">
+    <div class="section-head center">
       <p class="kicker">Retoma y venta</p>
       <h2>¿Quieres vender o retomar tu carro?</h2>
-      <p>Déjanos los datos de tu vehículo y uno de nuestros asesores se pondrá en contacto contigo.</p>
+      <p>Te lo compramos o lo recibimos como parte de pago por uno de nuestro inventario.</p>
     </div>
-    <div class="text-center">
-      <a class="btn btn-primary" href="vende-tu-carro.html">Quiero vender mi carro</a>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><h3>Cuéntanos de tu carro</h3><p>Llena el formulario con los datos básicos de tu vehículo.</p></div>
+      <div class="step"><div class="num">2</div><h3>Te contactamos</h3><p>Un asesor revisa la información y se comunica contigo.</p></div>
+      <div class="step"><div class="num">3</div><h3>Véndelo o retómalo</h3><p>Tú decides: lo vendes o lo entregas por el carro que quieres.</p></div>
+    </div>
+    <div class="section-foot">
+      <a class="btn btn-primary" href="vende-tu-carro.html">Cuéntanos de tu carro</a>
     </div>
   </div>
 </section>
 
-<!-- 5. Clientes -->
+<!-- 6. Clientes -->
 <section id="clientes-felices">
   <div class="wrap">
     <div class="section-head center">
@@ -107,7 +176,7 @@
   </div>
 </section>
 
-<!-- 6. Redes sociales -->
+<!-- 7. Redes sociales -->
 <section class="bg-card" id="redes-sociales" data-hide-if-empty>
   <div class="wrap">
     <div class="section-head center">
@@ -137,7 +206,7 @@
   </div>
 </section>
 
-<!-- 7. Nuestro equipo -->
+<!-- 8. Nuestro equipo -->
 <section id="equipo">
   <div class="wrap">
     <div class="section-head center">
@@ -149,7 +218,7 @@
   </div>
 </section>
 
-<!-- 8. Contacto -->
+<!-- 9. Contacto -->
 <section class="cta" id="contacto" data-hide-if-empty>
   <div class="wrap">
     <h2>¿Listo para encontrar tu vehículo?</h2>
@@ -173,42 +242,32 @@
         <a class="brand" href="index.html">
           <img src="assets/img/logo.webp" alt="MVillacar" class="brand-logo">
         </a>
-        <p>Retoma y venta de vehículos de primera.</p>
+        <p>Retoma y venta de vehículos de primera. En Cali desde 2009.</p>
       </div>
-      <div class="footer-col">
-        <h4>Vehículos</h4>
-        <ul>
-          <li><a href="inventario.html">Inventario</a></li>
-          <li><a href="index.html#recien-llegados">Recién llegados</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Empresa</h4>
-        <ul>
-          <li><a href="nosotros.html">Nosotros</a></li>
-          <li><a href="nosotros.html#historia">Nuestra historia</a></li>
-          <li><a href="nosotros.html#clientes-felices">Clientes felices</a></li>
-          <li><a href="nosotros.html#equipo">Nuestro equipo</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Contacto</h4>
-        <ul>
-          <li><a href="vende-tu-carro.html">Vende tu carro</a></li>
-          <li><a href="contacto.html">Contáctanos</a></li>
-        </ul>
-      </div>
-      <div class="footer-col" data-hide-if-empty>
-        <h4>Síguenos</h4>
-        <ul>
-          <li><a data-social="instagram" target="_blank" rel="noopener">Instagram</a></li>
-          <li><a data-social="tiktok" target="_blank" rel="noopener">TikTok</a></li>
-          <li><a data-social="facebook" target="_blank" rel="noopener">Facebook</a></li>
-        </ul>
-      </div>
+      <div class="footer-col"><h4>Vehículos</h4><ul>
+        <li><a href="inventario.html">Inventario</a></li>
+        <li><a href="index.html#recien-llegados">Recién llegados</a></li>
+        <li><a href="financiacion.html">Financiación</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Empresa</h4><ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="nosotros.html#historia">Nuestra historia</a></li>
+        <li><a href="nosotros.html#clientes-felices">Clientes felices</a></li>
+        <li><a href="nosotros.html#equipo">Nuestro equipo</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contacto</h4><ul>
+        <li><a href="vende-tu-carro.html">Vende o retoma tu carro</a></li>
+        <li><a href="financiacion.html">Simula tu crédito</a></li>
+        <li><a href="contacto.html">Contáctanos</a></li>
+      </ul></div>
+      <div class="footer-col" data-hide-if-empty><h4>Síguenos</h4><ul>
+        <li><a data-social="instagram" target="_blank" rel="noopener">Instagram</a></li>
+        <li><a data-social="tiktok" target="_blank" rel="noopener">TikTok</a></li>
+        <li><a data-social="facebook" target="_blank" rel="noopener">Facebook</a></li>
+      </ul></div>
     </div>
     <div class="footer-bottom">
-      <p>© <span data-year></span> MVillacar</p>
+      <p>© <span data-year></span> MVillacar · Cali, Colombia</p>
       <div class="footer-legal">
         <a href="login.html">Acceso interno</a>
         <a href="#">Política de privacidad</a>
@@ -248,11 +307,75 @@
 <script src="assets/js/catalog.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", async function(){
-    /* Fotos de clientes felices (muestra 4 en home) */
+    /* Pestañas Comprar / Vender o retomar del buscador de la portada */
+    document.querySelectorAll(".hero-tab").forEach(function(tab){
+      tab.addEventListener("click", function(){
+        document.querySelectorAll(".hero-tab").forEach(function(t){ t.classList.remove("active"); });
+        tab.classList.add("active");
+        const which = tab.getAttribute("data-tab");
+        document.querySelectorAll(".hero-search [data-panel]").forEach(function(p){ p.hidden = p.getAttribute("data-panel") !== which; });
+      });
+    });
+
+    /* Buscador: llena las marcas con el inventario real y manda a inventario.html filtrado */
+    const marcaSelect = document.getElementById("hs-marca");
+    const vehiclesAll = await fetchVehicles();
+    uniqueSorted(vehiclesAll.map(function(v){ return v.marca; })).forEach(function(m){
+      const opt = document.createElement("option");
+      opt.value = m; opt.textContent = m;
+      marcaSelect.appendChild(opt);
+    });
+
+    document.getElementById("hero-search-form").addEventListener("submit", function(e){
+      e.preventDefault();
+      const params = new URLSearchParams();
+      const linea = document.getElementById("hs-linea").value.trim();
+      const precio = document.getElementById("hs-precio").value;
+      if(marcaSelect.value) params.set("marca", marcaSelect.value);
+      if(linea) params.set("linea", linea);
+      if(precio) params.set("precioMax", precio);
+      const qs = params.toString();
+      window.location.href = "inventario.html" + (qs ? "?" + qs : "");
+    });
+
+    /* Busca por marca: las 4 marcas con más vehículos (con la foto de uno de
+       ellos de fondo) y, debajo, una banda con todas que rota sola. */
+    const byMarca = {};
+    vehiclesAll.forEach(function(v){ (byMarca[v.marca] = byMarca[v.marca] || []).push(v); });
+    const marcas = Object.keys(byMarca).sort(function(a, b){
+      return byMarca[b].length - byMarca[a].length || a.localeCompare(b, "es");
+    });
+    fillOrHideSection(document.getElementById("brand-grid"), marcas.slice(0, 4).map(function(marca){
+      const list = byMarca[marca];
+      const withPhoto = list.find(function(v){ return v.fotos && v.fotos[0]; });
+      const bg = withPhoto ? ' style="background-image:url(\'' + withPhoto.fotos[0] + '\')"' : "";
+      return '<a class="brand-card" href="inventario.html?marca=' + encodeURIComponent(marca) + '"' + bg + '>' +
+        '<div>' +
+          brandMarkHTML(marca, "brand-logo-img") +
+          '<div class="brand-name">' + marca + '</div>' +
+          '<span class="brand-count">' + list.length + (list.length === 1 ? ' vehículo' : ' vehículos') + '</span>' +
+        '</div>' +
+        '<span class="brand-arrow" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>' +
+      '</a>';
+    }).join(""));
+    const chipsTrack = document.getElementById("brand-chips");
+    if(marcas.length > 4){
+      /* El contenido se duplica para que la vuelta no se note; se pausa al pasar el mouse */
+      const chipsHtml = marcas.map(function(marca){
+        return '<a class="brand-chip" href="inventario.html?marca=' + encodeURIComponent(marca) + '">' +
+          brandMarkHTML(marca, "brand-chip-logo") + '<span>' + marca + '</span></a>';
+      }).join("");
+      chipsTrack.innerHTML = chipsHtml + '<span class="brand-marquee-copy" aria-hidden="true">' + chipsHtml + '</span>';
+      chipsTrack.style.setProperty("--marquee-duration", (marcas.length * 3.2) + "s");
+    } else {
+      chipsTrack.parentElement.hidden = true;
+    }
+
+    /* Fotos de clientes felices (muestra 4 en el inicio) */
     const happyClients = await fetchHappyClients();
     fillOrHideSection(document.getElementById("clientes-grid"), renderClientPhotos(happyClients.slice(0,4)));
 
-    /* Equipo (home) */
+    /* Equipo (inicio) */
     const team = await fetchTeam();
     fillOrHideSection(document.getElementById("team-grid-home"), team.map(function(m){
         const photo = m.foto

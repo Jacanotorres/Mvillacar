@@ -85,19 +85,6 @@ document.addEventListener("DOMContentLoaded", function(){
     el.textContent = new Date().getFullYear();
   });
 
-  /* Botón "Panel" del header: viene oculto y solo se muestra cuando hay
-     una sesión abierta. Se protege con typeof por si la página no cargó
-     el cliente de Supabase. */
-  const authLink = document.getElementById("header-auth-link");
-  if(authLink && typeof supabaseClient !== "undefined" && supabaseClient){
-    supabaseClient.auth.getSession().then(function(res){
-      if(res.data.session){
-        authLink.hidden = false;
-        document.body.classList.add("logged-in");
-      }
-    });
-  }
-
   /* Acordeón de preguntas frecuentes */
   document.querySelectorAll(".faq-item .faq-q").forEach(function(btn){
     btn.addEventListener("click", function(){
@@ -119,6 +106,16 @@ function renderClientPhotos(list){
       : photoIconSVG();
     return '<div class="team-photo">' + inner + '</div>';
   }).join("");
+}
+
+/* Marca visual de un fabricante: su logo si lo tenemos, y si no un emblema
+   con sus iniciales, para que ninguna marca quede sin identificar. */
+function brandMarkHTML(marca, cls){
+  const logo = brandLogoUrl(marca);
+  if(logo) return '<img class="' + cls + '" src="' + logo + '" alt="Logo de ' + marca + '" loading="lazy">';
+  const words = String(marca).trim().split(/[\s\-]+/).filter(Boolean);
+  const initials = (words.length > 1 ? words[0][0] + words[1][0] : String(marca).trim().slice(0, 2)).toUpperCase();
+  return '<span class="brand-mono ' + cls + '" role="img" aria-label="' + marca + '">' + initials + '</span>';
 }
 
 /* Para las secciones que se llenan desde Supabase (clientes, equipo,

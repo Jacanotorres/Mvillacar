@@ -91,6 +91,17 @@ async function initInventoryPage(){
     if(els.count) els.count.textContent = list.length + (list.length === 1 ? " vehículo disponible" : " vehículos disponibles");
   }
 
+  /* En celular los filtros vienen plegados; este botón los muestra/oculta */
+  const filtersToggle = document.getElementById("filters-toggle");
+  const searchPanel = document.getElementById("search-panel");
+  if(filtersToggle && searchPanel){
+    filtersToggle.addEventListener("click", function(){
+      const open = searchPanel.classList.toggle("open");
+      filtersToggle.setAttribute("aria-expanded", open ? "true" : "false");
+      filtersToggle.querySelector("span").textContent = open ? "Ocultar filtros" : "Filtrar y buscar";
+    });
+  }
+
   Object.keys(els).forEach(function(key){
     const el = els[key];
     if(!el || key === "reset" || key === "count") return;
@@ -112,6 +123,7 @@ async function initInventoryPage(){
   /* Prefiltros vía URL */
   const params = new URLSearchParams(window.location.search);
   if(params.get("marca")) els.marca.value = params.get("marca");
+  if(params.get("linea")) els.linea.value = params.get("linea");
   if(params.get("precioMax")) els.precioMax.value = params.get("precioMax");
   applyFilters();
 }

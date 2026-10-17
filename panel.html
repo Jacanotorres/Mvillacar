@@ -7,10 +7,13 @@
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,500;0,600;0,700;1,600;1,700&family=Titillium+Web:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="192x192" href="/assets/img/icon-192.png">
+<link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
 <link rel="stylesheet" href="assets/css/styles.css">
 </head>
-<body>
+<body class="panel-page">
 
 <header class="site">
   <div class="wrap">
@@ -19,7 +22,7 @@
     </a>
     <div class="header-actions">
       <a class="btn btn-ghost btn-sm" href="index.html">Ver sitio</a>
-      <button class="btn btn-primary btn-sm" id="btn-logout">Cerrar sesión</button>
+      <button class="btn btn-primary btn-sm" id="btn-logout"><span class="only-desktop">Cerrar sesión</span><span class="only-mobile">Salir</span></button>
     </div>
   </div>
 </header>
@@ -223,9 +226,9 @@
     }
     tbody.innerHTML = vehicles.map(function(v){
       return '<tr>' +
-        '<td>' + v.marca + ' ' + v.linea + '</td>' +
-        '<td>' + v.modelo + '</td>' +
-        '<td>' + formatPrice(v.precio) + '</td>' +
+        '<td class="cell-title">' + v.marca + ' ' + v.linea + '</td>' +
+        '<td data-label="Año">' + v.modelo + '</td>' +
+        '<td data-label="Precio">' + formatPrice(v.precio) + '</td>' +
         '<td><div class="panel-actions">' +
           '<button class="btn btn-ghost btn-sm" data-edit="' + v.id + '">Editar</button>' +
           '<button class="btn btn-ghost btn-sm" data-delete="' + v.id + '">Eliminar</button>' +
@@ -250,7 +253,7 @@
   }
 
   async function loadVehicles(){
-    vehicles = await fetchVehicles();
+    vehicles = await fetchVehicles(true);  /* true: siempre la versión más reciente tras editar */
     renderVehiclesTable();
   }
 
@@ -519,9 +522,9 @@
     tbody.innerHTML = team.map(function(m){
       return '<tr>' +
         '<td>' + (m.foto ? '<img src="' + m.foto + '" alt="" style="width:36px;height:36px;border-radius:50%;object-fit:cover;">' : '—') + '</td>' +
-        '<td>' + m.nombre + '</td>' +
-        '<td>' + m.cargo + '</td>' +
-        '<td>' + m.whatsapp + '</td>' +
+        '<td class="cell-title">' + m.nombre + '</td>' +
+        '<td data-label="Cargo">' + m.cargo + '</td>' +
+        '<td data-label="WhatsApp">' + m.whatsapp + '</td>' +
         '<td><div class="panel-actions">' +
           '<button class="btn btn-ghost btn-sm" data-edit-team="' + m.id + '">Editar</button>' +
           '<button class="btn btn-ghost btn-sm" data-delete-team="' + m.id + '">Eliminar</button>' +

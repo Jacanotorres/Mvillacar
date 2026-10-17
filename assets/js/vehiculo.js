@@ -39,28 +39,40 @@ async function renderVehicleDetail(){
         : "")
     : '<div class="veh-gallery-main">' + carIconSVG() + '</div>';
 
-  const waText = "Hola, quiero más información del " + v.marca + " " + v.linea + " " + v.modelo;
+  const nombre = v.marca + " " + v.linea + " " + v.modelo;
+  const waText = "Hola, quiero más información del " + nombre;
   const contactHTML = WHATSAPP_NUMBER
     ? '<p class="veh-cta-line">¿Te interesa este vehículo? Escríbenos ahora.</p>' +
       '<a class="btn btn-green" href="' + waLink(waText) + '" target="_blank" rel="noopener">Hablar por WhatsApp</a>' +
-      '<a class="btn btn-ghost" href="' + waLink("Hola, quiero programar una visita para ver el " + v.marca + " " + v.linea + " " + v.modelo) + '" target="_blank" rel="noopener">Programar visita</a>' +
-      '<p style="margin-top:16px;margin-bottom:0;font-size:13.5px;">Uno de nuestros asesores puede darte más información, enviarte fotos adicionales o ayudarte a programar una visita.</p>'
+      '<a class="btn btn-ghost" href="' + waLink("Hola, quiero programar una visita para ver el " + nombre) + '" target="_blank" rel="noopener">Programar visita</a>'
     : '<a class="btn btn-primary" href="contacto.html">Contáctanos</a>';
+  const financeHTML = '<a class="btn btn-ghost" href="financiacion.html?vehiculo=' + encodeURIComponent(v.id) + '">Simular financiación</a>';
+
+  /* Título, año y precio: en escritorio van en la columna lateral; en
+     celular se muestran debajo de las fotos (veh-mobile-summary). */
+  const summaryHTML =
+    '<div class="veh-quick-specs"><span>' + v.modelo + '</span></div>' +
+    '<div class="veh-price-wrap"><span class="veh-price">' + formatPrice(v.precio) + '</span></div>';
 
   root.innerHTML =
     '<div class="veh-detail">' +
       '<div>' +
         galleryHTML +
 
+        '<div class="veh-mobile-summary">' +
+          '<p class="veh-mobile-title">' + v.marca + ' ' + v.linea + '</p>' +
+          summaryHTML +
+        '</div>' +
+
         (v.descripcion
-          ? '<div style="margin-top:44px;">' +
-              '<h2 style="font-size:26px;margin-bottom:16px;">Descripción</h2>' +
+          ? '<div class="veh-block">' +
+              '<h2>Descripción</h2>' +
               '<p class="veh-desc" id="veh-desc"></p>' +
             '</div>'
           : "") +
 
-        '<div style="margin-top:44px;">' +
-          '<h2 style="font-size:26px;margin-bottom:16px;">Información del vehículo</h2>' +
+        '<div class="veh-block">' +
+          '<h2>Información del vehículo</h2>' +
           '<table class="spec-table">' +
             specRow("Marca", v.marca) +
             specRow("Modelo", v.linea) +
@@ -70,13 +82,11 @@ async function renderVehicleDetail(){
       '</div>' +
 
       '<aside class="veh-sidebar">' +
-        '<h1 style="font-size:26px;margin-bottom:4px;">' + v.marca + ' ' + v.linea + '</h1>' +
-        '<div class="veh-quick-specs"><span>' + v.modelo + '</span></div>' +
-        '<div class="veh-price-wrap"><span class="veh-price">' + formatPrice(v.precio) + '</span></div>' +
-        (WHATSAPP_NUMBER
-          ? '<p style="margin:-8px 0 20px;"><a class="link-arrow" href="' + waLink("Hola, quiero información sobre financiación para el " + v.marca + " " + v.linea + " " + v.modelo) + '" target="_blank" rel="noopener">¿Necesitas financiación? Pregúntanos →</a></p>'
-          : "") +
+        '<h1>' + v.marca + ' ' + v.linea + '</h1>' +
+        summaryHTML +
         contactHTML +
+        financeHTML +
+        '<p class="veh-sidebar-note">Uno de nuestros asesores puede darte más información, enviarte fotos adicionales o ayudarte a programar una visita.</p>' +
       '</aside>' +
     '</div>';
 
@@ -86,13 +96,41 @@ async function renderVehicleDetail(){
 
   if(fotos.length > 1){
     const mainPhoto = document.getElementById("veh-main-photo");
-    root.querySelectorAll(".veh-gallery-thumbs div").forEach(function(thumb){
-      thumb.addEventListener("click", function(){
-        mainPhoto.src = thumb.getAttribute("data-src");
-        root.querySelectorAll(".veh-gallery-thumbs div").forEach(function(t){ t.classList.remove("active"); });
-        thumb.classList.add("active");
-      });
+    const thumbs = Array.from(root.querySelectorAll(".veh-gallery-thumbs div"));
+    let current = 0;
+
+    function goTo(i){
+      current = (i + fotos.length) % fotos.length;
+      mainPhoto.src = fotos[current];
+      thumbs.forEach(function(t, idx){ t.classList.toggle("active", idx === current); });
+      thumbs[current].scrollIntoView({ block: "nearest", inline: "center", behavior: "smooth" });
+    }
+
+    thumbs.forEach(function(thumb, idx){
+      thumb.addEventListener("click", function(){ goTo(idx); });
     });
+
+    /* En celular: deslizar la foto principal a izquierda o derecha */
+    const stage = root.querySelector(".veh-gallery-main");
+    let startX = null;
+    stage.addEventListener("touchstart", function(e){ startX = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener("touchend", function(e){
+      if(startX === null) return;
+      const dx = e.changedTouches[0].clientX - startX;
+      startX = null;
+      if(Math.abs(dx) > 40) goTo(current + (dx < 0 ? 1 : -1));
+    });
+  }
+
+  /* Barra fija abajo en celular: precio + WhatsApp siempre a la mano */
+  if(WHATSAPP_NUMBER){
+    const sticky = document.createElement("div");
+    sticky.className = "veh-sticky-cta";
+    sticky.innerHTML =
+      '<div class="veh-sticky-price"><small>' + v.marca + ' ' + v.linea + '</small><strong>' + formatPrice(v.precio) + '</strong></div>' +
+      '<a class="btn btn-green" href="' + waLink(waText) + '" target="_blank" rel="noopener">WhatsApp</a>';
+    document.body.appendChild(sticky);
+    document.body.classList.add("has-sticky-cta");
   }
 }
 

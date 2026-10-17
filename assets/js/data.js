@@ -25,6 +25,15 @@ const SOCIAL_LINKS = {
 /* Mapa incrustado de la página de contacto. Vacío = no se muestra el mapa. */
 const MAP_EMBED_URL = "";
 
+/* Clientes felices fijos (entregas reales de MVillacar), en assets/img/clientes/.
+   Se muestran después de los que se suban desde el panel. */
+const HAPPY_CLIENTS_FIJOS = [
+  "assets/img/clientes/cliente-1.webp",
+  "assets/img/clientes/cliente-2.webp",
+  "assets/img/clientes/cliente-3.webp",
+  "assets/img/clientes/cliente-4.webp"
+];
+
 /* Parámetros del simulador de financiación (financiacion.html).
    OJO: la tasa es un valor de referencia; confirmarla con MVillacar. */
 const FINANCE_RATE_EA = 0.22;                    /* tasa efectiva anual (22 %) */

@@ -1,6 +1,0 @@
-project_id = "fpmslcgvqbdlhwlqyzsk"
-
-# Meta llama al webhook sin token de Supabase; la seguridad la da la firma
-# X-Hub-Signature-256 que se valida dentro de la función.
-[functions.whatsapp-bot]
-verify_jwt = false

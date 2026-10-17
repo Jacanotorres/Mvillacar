@@ -104,7 +104,7 @@ function renderClientPhotos(list){
     const inner = c.foto
       ? '<img src="' + c.foto + '" alt="Cliente feliz con su vehículo" style="width:100%;height:100%;object-fit:cover;display:block;">'
       : photoIconSVG();
-    return '<div class="team-photo">' + inner + '</div>';
+    return '<div class="team-photo client-photo">' + inner + '</div>';
   }).join("");
 }
 

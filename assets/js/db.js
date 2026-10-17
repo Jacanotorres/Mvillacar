@@ -76,17 +76,20 @@ async function fetchTeam(){
   return data;
 }
 
+/* Clientes felices: los que se suben desde el panel (primero) y luego las
+   fotos fijas de data.js (HAPPY_CLIENTS_FIJOS). */
 async function fetchHappyClients(){
-  if(!supabaseClient) return [];
+  const fijos = HAPPY_CLIENTS_FIJOS.map(function(url){ return { foto: url }; });
+  if(!supabaseClient) return fijos;
   const { data, error } = await supabaseClient
     .from("happy_clients")
     .select("*")
     .order("orden", { ascending: true });
   if(error){
     console.error("Error cargando clientes felices:", error);
-    return [];
+    return fijos;
   }
-  return data.map(function(c){ return { foto: c.foto }; });
+  return data.map(function(c){ return { foto: c.foto }; }).concat(fijos);
 }
 
 /* Galería del concesionario (página "Nosotros"): fotos y videos en orden */

@@ -1129,3 +1129,11 @@ nav.main-nav a:hover::after, nav.main-nav a.active::after{transform:scaleX(1) sk
 footer.site{position:relative;}
 footer.site::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--stripes);}
 .footer-col h4{font-style:italic;letter-spacing:1.4px;}
+
+/* ---------- Clientes felices: fotos verticales, como se toman en la entrega ---------- */
+.team-photo.client-photo{aspect-ratio:3/4;position:relative;}
+.team-photo.client-photo img{object-position:center 40%;transition:transform .5s ease;}
+.team-photo.client-photo:hover img{transform:scale(1.04);}
+.team-photo.client-photo::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--stripes);
+}

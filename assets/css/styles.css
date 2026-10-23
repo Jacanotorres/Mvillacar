@@ -1137,3 +1137,28 @@ footer.site::before{content:"";position:absolute;left:0;right:0;top:0;height:3px
 .team-photo.client-photo::after{
   content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--stripes);
 }
+
+/* ---------- SOAT y tecnomecánica: días que faltan ---------- */
+.doc-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.doc-card{position:relative;background:var(--card);border:1px solid var(--line);padding:22px 22px 20px 26px;}
+.doc-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:#1FAF55;}
+.doc-card.doc-pronto::before{background:#F2B01E;}
+.doc-card.doc-vencido::before{background:var(--m-red);}
+.doc-name{font-family:var(--font-display);font-style:italic;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted-on-dark);font-size:14px;}
+.doc-days{display:flex;align-items:baseline;gap:10px;margin:6px 0 4px;}
+.doc-days strong{font-family:var(--font-display);font-style:italic;font-weight:700;font-size:46px;line-height:1;color:#fff;}
+.doc-days span{font-size:15px;color:var(--charcoal);}
+.doc-pronto .doc-days strong{color:#F2B01E;}
+.doc-vencido .doc-days strong{color:#FF5C4A;}
+.doc-date{font-size:14px;color:var(--muted-on-dark);}
+@media (max-width:560px){ .doc-grid{grid-template-columns:1fr;} }
+/* En el panel: etiqueta de color en la tabla */
+.vigencia{font-weight:700;}
+.vigencia-ok{color:#4ADE80;}
+.vigencia-pronto{color:#F2B01E;}
+.vigencia-vencido{color:#FF5C4A;}
+.panel-card input[type="date"]{color-scheme:dark;}
+.panel-card select{
+  width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:0;
+  font-family:var(--font-body);font-size:15px;background:var(--ink);color:var(--cream);
+}

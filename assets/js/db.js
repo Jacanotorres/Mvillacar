@@ -7,9 +7,10 @@
 
 /* Convierte una fila de la tabla "vehicles" (+ sus vehicle_photos) al
    objeto que usan catalog.js, vehiculo.js y el panel.
-   MVillacar publica cada carro solo con marca, modelo, año, descripción
-   y precio. OJO con los nombres de la tabla: la columna "linea" guarda el
-   modelo (ej. "Mazda 3") y la columna "modelo" guarda el año. */
+   MVillacar publica cada carro con último dígito de placa, marca, línea,
+   año, kilometraje, color, precio, accesorios/descripción y las fechas de
+   vencimiento del SOAT y la tecnomecánica. OJO con los nombres de la tabla:
+   la columna "linea" guarda la línea (ej. "Mazda 3") y "modelo" el año. */
 function normalizeVehicle(row){
   const fotos = (row.vehicle_photos || [])
     .slice()
@@ -21,6 +22,11 @@ function normalizeVehicle(row){
     linea: row.linea,
     modelo: row.modelo,
     precio: row.precio,
+    km: row.km,
+    color: row.color || "",
+    placaDigito: row.placa_digito || "",
+    soatVence: row.soat_vence || "",
+    tecnoVence: row.tecno_vence || "",
     descripcion: row.descripcion || "",
     fechaIngreso: row.fecha_ingreso,
     fotos: fotos

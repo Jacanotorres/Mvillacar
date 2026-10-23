@@ -12,18 +12,18 @@
 const WHATSAPP_NUMBER = "573186651831";             // solo dígitos, con indicativo del país
 const CONTACT_PHONE_DISPLAY = "+57 318 665 1831";  // como se muestra en el sitio
 const CONTACT_EMAIL = "";
-const CONTACT_ADDRESS = "";
+const CONTACT_ADDRESS = "C.C. Unicentro Cali, torre de parqueaderos (arriba de los Cars), espacio comercial 143 · Cra. 100 #5-169, Cali";
 const CONTACT_HOURS = "Lunes a viernes, 8:00 a.m. – 6:00 p.m. · Sábados, 8:00 a.m. – 3:30 p.m.";
 
 const SOCIAL_LINKS = {
   instagram: "https://www.instagram.com/mvillacaroficial/",
   tiktok: "https://www.tiktok.com/@mvillacaroficial",
   facebook: "https://www.facebook.com/MVillacaroficial/",
-  maps: ""                         // enlace de Google Maps de la sede
+  maps: "https://www.google.com/maps/search/?api=1&query=Unicentro+Cali,+Cra.+100+%235-169,+Cali"
 };
 
 /* Mapa incrustado de la página de contacto. Vacío = no se muestra el mapa. */
-const MAP_EMBED_URL = "";
+const MAP_EMBED_URL = "https://www.google.com/maps?q=Unicentro+Cali,+Cra.+100+%235-169,+Cali&z=16&output=embed";
 
 /* Clientes felices fijos (entregas reales de MVillacar), en assets/img/clientes/.
    Se muestran después de los que se suban desde el panel. */
@@ -55,6 +55,38 @@ function formatPrice(n){
 }
 function formatKm(n){
   return n.toLocaleString("es-CO") + " km";
+}
+
+/* SOAT y revisión técnico-mecánica: se guardan como fecha "AAAA-MM-DD".
+   daysUntil() cuenta los días que faltan desde hoy (negativo si ya venció). */
+function parseISODate(iso){
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(String(iso || ""));
+  return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null;
+}
+function daysUntil(iso){
+  const d = parseISODate(iso);
+  if(!d) return null;
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  return Math.round((d - today) / 86400000);
+}
+function formatDateLong(iso){
+  const d = parseISODate(iso);
+  return d ? d.toLocaleDateString("es-CO", { day: "numeric", month: "long", year: "numeric" }) : "";
+}
+/* Texto corto: "Faltan 140 días", "Vence hoy", "Vencido hace 3 días" */
+function vigenciaTexto(iso){
+  const n = daysUntil(iso);
+  if(n === null) return "";
+  if(n > 1) return "Faltan " + n + " días";
+  if(n === 1) return "Falta 1 día";
+  if(n === 0) return "Vence hoy";
+  return "Vencido hace " + (-n) + (n === -1 ? " día" : " días");
+}
+/* Estado para el color: "ok" (más de 30 días), "pronto" (30 o menos), "vencido" */
+function vigenciaEstado(iso){
+  const n = daysUntil(iso);
+  if(n === null) return "";
+  return n < 0 ? "vencido" : (n <= 30 ? "pronto" : "ok");
 }
 
 /* Logos de marca (assets/img/marcas/, en blanco). Se busca por el nombre de la

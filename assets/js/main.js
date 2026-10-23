@@ -108,6 +108,15 @@ function renderClientPhotos(list){
   }).join("");
 }
 
+/* Año · kilometraje · color (lo que falte no se muestra) */
+function vehicleSpecsHTML(v){
+  return [
+    v.modelo,
+    (v.km !== null && v.km !== undefined && v.km !== "") ? formatKm(v.km) : "",
+    v.color
+  ].filter(Boolean).map(function(x){ return "<span>" + x + "</span>"; }).join("");
+}
+
 /* Marca visual de un fabricante: su logo si lo tenemos, y si no un emblema
    con sus iniciales, para que ninguna marca quede sin identificar. */
 function brandMarkHTML(marca, cls){

@@ -54,9 +54,9 @@
         <div class="panel-table-wrap" style="margin-top:18px;">
           <table class="panel-table">
             <thead><tr>
-              <th>Vehículo</th><th>Año</th><th>Precio</th><th></th>
+              <th>Vehículo</th><th>Año</th><th>Km</th><th>Precio</th><th>SOAT</th><th>Tecno</th><th></th>
             </tr></thead>
-            <tbody id="vehicles-tbody"><tr><td colspan="4" class="panel-empty">Cargando...</td></tr></tbody>
+            <tbody id="vehicles-tbody"><tr><td colspan="7" class="panel-empty">Cargando...</td></tr></tbody>
           </table>
         </div>
       </div>
@@ -66,11 +66,22 @@
         <form id="vehicle-form">
           <input type="hidden" id="v-id">
           <div class="form-grid">
+            <div><label for="v-placa">Último dígito de la placa</label>
+              <select id="v-placa" required>
+                <option value="">Elige</option>
+                <option>0</option><option>1</option><option>2</option><option>3</option><option>4</option>
+                <option>5</option><option>6</option><option>7</option><option>8</option><option>9</option>
+              </select>
+            </div>
             <div><label for="v-marca">Marca</label><input id="v-marca" type="text" required placeholder="Ej: Mazda"></div>
-            <div><label for="v-linea">Modelo</label><input id="v-linea" type="text" required placeholder="Ej: CX-5 Grand Touring"></div>
+            <div><label for="v-linea">Línea</label><input id="v-linea" type="text" required placeholder="Ej: CX-5 Grand Touring"></div>
             <div><label for="v-modelo">Año</label><input id="v-modelo" type="number" required min="1950" max="2100" placeholder="Ej: 2022"></div>
+            <div><label for="v-km">Kilometraje</label><input id="v-km" type="number" required min="0" placeholder="Ej: 45000"></div>
+            <div><label for="v-color">Color</label><input id="v-color" type="text" required placeholder="Ej: Gris"></div>
             <div><label for="v-precio">Precio</label><input id="v-precio" type="number" required min="0" placeholder="Ej: 85000000"></div>
-            <div class="full"><label for="v-descripcion">Descripción</label><textarea id="v-descripcion" rows="6" placeholder="Kilometraje, estado, equipamiento y lo que quieras contar del vehículo."></textarea></div>
+            <div><label for="v-tecno">Tecnomecánica (vence)</label><input id="v-tecno" type="date"></div>
+            <div><label for="v-soat">SOAT (vence)</label><input id="v-soat" type="date"></div>
+            <div class="full"><label for="v-descripcion">Accesorios / descripción</label><textarea id="v-descripcion" rows="6" placeholder="Accesorios, estado y lo que quieras contar del vehículo."></textarea></div>
           </div>
           <div class="panel-actions" style="margin-top:22px;">
             <button type="submit" class="btn btn-primary">Guardar</button>
@@ -221,14 +232,17 @@
   function renderVehiclesTable(){
     const tbody = document.getElementById("vehicles-tbody");
     if(vehicles.length === 0){
-      tbody.innerHTML = '<tr><td colspan="4" class="panel-empty">Todavía no hay vehículos.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="7" class="panel-empty">Todavía no hay vehículos.</td></tr>';
       return;
     }
     tbody.innerHTML = vehicles.map(function(v){
       return '<tr>' +
         '<td class="cell-title">' + v.marca + ' ' + v.linea + '</td>' +
         '<td data-label="Año">' + v.modelo + '</td>' +
+        '<td data-label="Km">' + (v.km !== null && v.km !== undefined ? formatKm(v.km) : '—') + '</td>' +
         '<td data-label="Precio">' + formatPrice(v.precio) + '</td>' +
+        '<td data-label="SOAT">' + vigenciaCelda(v.soatVence) + '</td>' +
+        '<td data-label="Tecno">' + vigenciaCelda(v.tecnoVence) + '</td>' +
         '<td><div class="panel-actions">' +
           '<button class="btn btn-ghost btn-sm" data-edit="' + v.id + '">Editar</button>' +
           '<button class="btn btn-ghost btn-sm" data-delete="' + v.id + '">Eliminar</button>' +
@@ -252,6 +266,12 @@
     });
   }
 
+  /* Días que le faltan al SOAT / tecno, en color si está por vencer o vencido */
+  function vigenciaCelda(iso){
+    if(!iso) return '—';
+    return '<span class="vigencia vigencia-' + vigenciaEstado(iso) + '">' + vigenciaTexto(iso) + '</span>';
+  }
+
   async function loadVehicles(){
     vehicles = await fetchVehicles(true);  /* true: siempre la versión más reciente tras editar */
     renderVehiclesTable();
@@ -267,6 +287,11 @@
     document.getElementById("v-linea").value = v ? v.linea : "";
     document.getElementById("v-modelo").value = v ? v.modelo : "";
     document.getElementById("v-precio").value = v ? v.precio : "";
+    document.getElementById("v-placa").value = v ? v.placaDigito : "";
+    document.getElementById("v-km").value = v && v.km !== null && v.km !== undefined ? v.km : "";
+    document.getElementById("v-color").value = v ? v.color : "";
+    document.getElementById("v-tecno").value = v ? v.tecnoVence : "";
+    document.getElementById("v-soat").value = v ? v.soatVence : "";
     document.getElementById("v-descripcion").value = v ? v.descripcion : "";
 
     /* Las fotos se cuelgan de un vehículo ya guardado: al crear uno nuevo
@@ -306,6 +331,11 @@
       linea: linea,
       modelo: modelo,
       precio: parseInt(document.getElementById("v-precio").value, 10),
+      placa_digito: document.getElementById("v-placa").value,
+      km: parseInt(document.getElementById("v-km").value, 10),
+      color: document.getElementById("v-color").value.trim(),
+      tecno_vence: document.getElementById("v-tecno").value || null,
+      soat_vence: document.getElementById("v-soat").value || null,
       descripcion: document.getElementById("v-descripcion").value.trim() || null
     };
 
@@ -320,7 +350,14 @@
       ({ error } = await supabaseClient.from("vehicles").insert(payload));
       if(!error) editingVehicleId = id;
     }
-    if(error){ alert("No se pudo guardar: " + error.message); return; }
+    if(error){
+      /* Si falta correr supabase-actualizacion-datos-vehiculos.sql, se avisa claro */
+      const msg = /placa_digito/.test(error.message)
+        ? "Falta actualizar la base de datos: corre el archivo supabase-actualizacion-datos-vehiculos.sql en Supabase."
+        : error.message;
+      alert("No se pudo guardar: " + msg);
+      return;
+    }
 
     await loadVehicles();
     document.getElementById("vehicle-photos-hint").hidden = true;

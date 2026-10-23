@@ -11,7 +11,7 @@ function renderVehicleCard(v){
       '<div class="vehicle-photo">' + photo + '</div>' +
       '<div class="vehicle-body">' +
         '<h3>' + v.marca + ' ' + v.linea + '</h3>' +
-        '<div class="vehicle-specs"><span>' + v.modelo + '</span></div>' +
+        '<div class="vehicle-specs">' + vehicleSpecsHTML(v) + '</div>' +
         '<p class="price">' + formatPrice(v.precio) + '</p>' +
         '<div class="vehicle-actions">' +
           '<span class="btn btn-primary btn-sm" style="pointer-events:none;">Ver vehículo</span>' +
@@ -54,12 +54,15 @@ async function initInventoryPage(){
     anio: document.getElementById("f-anio"),
     precioMin: document.getElementById("f-precio-min"),
     precioMax: document.getElementById("f-precio-max"),
+    km: document.getElementById("f-km"),
+    color: document.getElementById("f-color"),
     sort: document.getElementById("f-sort"),
     reset: document.getElementById("f-reset"),
     count: document.getElementById("results-count")
   };
 
   fillSelect(els.marca, uniqueSorted(disponibles.map(function(v){ return v.marca; })), "Todas las marcas");
+  fillSelect(els.color, uniqueSorted(disponibles.map(function(v){ return v.color; }).filter(Boolean)), "Todos los colores");
 
   function currentFilters(){
     return {
@@ -67,7 +70,9 @@ async function initInventoryPage(){
       linea: (els.linea.value || "").trim().toLowerCase(),
       anio: els.anio.value,
       precioMin: parseFloat(els.precioMin.value) || null,
-      precioMax: parseFloat(els.precioMax.value) || null
+      precioMax: parseFloat(els.precioMax.value) || null,
+      km: parseFloat(els.km.value) || null,
+      color: els.color.value
     };
   }
 
@@ -79,6 +84,8 @@ async function initInventoryPage(){
       if(f.anio && String(v.modelo) !== f.anio) return false;
       if(f.precioMin && v.precio < f.precioMin) return false;
       if(f.precioMax && v.precio > f.precioMax) return false;
+      if(f.km && !(v.km <= f.km)) return false;
+      if(f.color && v.color !== f.color) return false;
       return true;
     });
 
@@ -86,6 +93,7 @@ async function initInventoryPage(){
     const sortKey = els.sort.value;
     if(sortKey === "precio-asc") list = list.slice().sort(function(a,b){ return a.precio - b.precio; });
     if(sortKey === "precio-desc") list = list.slice().sort(function(a,b){ return b.precio - a.precio; });
+    if(sortKey === "km-asc") list = list.slice().sort(function(a,b){ return (a.km ?? Infinity) - (b.km ?? Infinity); });
 
     renderGrid(grid, list);
     if(els.count) els.count.textContent = list.length + (list.length === 1 ? " vehículo disponible" : " vehículos disponibles");

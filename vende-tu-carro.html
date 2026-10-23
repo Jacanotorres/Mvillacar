@@ -70,8 +70,16 @@
             <div class="full"><label for="s-celular">Número de celular</label><input id="s-celular" type="tel" required></div>
             <div><label for="s-marca">Marca</label><input id="s-marca" type="text" required></div>
             <div><label for="s-linea">Línea</label><input id="s-linea" type="text" required></div>
-            <div><label for="s-modelo">Modelo (año)</label><input id="s-modelo" type="number" required></div>
+            <div><label for="s-modelo">Año</label><input id="s-modelo" type="number" required></div>
             <div><label for="s-km">Kilometraje</label><input id="s-km" type="number" required></div>
+            <div><label for="s-transmision">Transmisión</label>
+              <select id="s-transmision" required>
+                <option value="">Elige una opción</option>
+                <option>Automática</option>
+                <option>Mecánica</option>
+              </select>
+            </div>
+            <div><label for="s-color">Color</label><input id="s-color" type="text" required placeholder="Ej: Gris"></div>
             <div><label for="s-placa">Placa</label><input id="s-placa" type="text"></div>
             <div><label for="s-ciudad">Ciudad</label><input id="s-ciudad" type="text" required></div>
             <div class="full"><label for="s-precio">Precio esperado</label><input id="s-precio" type="text" placeholder="Ej: $50.000.000"></div>
@@ -171,6 +179,8 @@
       var linea = document.getElementById("s-linea").value;
       var modelo = document.getElementById("s-modelo").value;
       var km = document.getElementById("s-km").value;
+      var transmision = document.getElementById("s-transmision").value;
+      var color = document.getElementById("s-color").value;
       var placa = document.getElementById("s-placa").value;
       var ciudad = document.getElementById("s-ciudad").value;
       var precio = document.getElementById("s-precio").value;
@@ -180,8 +190,10 @@
         "Celular: " + celular + "\n" +
         "Marca: " + marca + "\n" +
         "Línea: " + linea + "\n" +
-        "Modelo: " + modelo + "\n" +
+        "Año: " + modelo + "\n" +
         "Kilometraje: " + km + "\n" +
+        "Transmisión: " + transmision + "\n" +
+        "Color: " + color + "\n" +
         "Placa: " + placa + "\n" +
         "Ciudad: " + ciudad + "\n" +
         "Precio esperado: " + precio;
@@ -206,6 +218,8 @@
           linea: linea,
           modelo: modelo ? parseInt(modelo, 10) : null,
           kilometraje: km ? parseInt(km, 10) : null,
+          transmision: transmision,
+          color: color,
           placa: placa,
           ciudad: ciudad,
           precio_esperado: precio

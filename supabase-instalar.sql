@@ -26,7 +26,9 @@ create table public.vende_tu_carro (
   kilometraje integer,
   placa text,
   ciudad text not null,
-  precio_esperado text
+  precio_esperado text,
+  transmision text,
+  color text
 );
 
 -- Seguridad: cualquier persona puede INSERTAR (enviar el formulario),
@@ -84,6 +86,7 @@ create table public.vehicles (
   cilindraje text,
   placa text unique,
   descripcion text,
+  placa_digito text,             -- último dígito de la placa
   soat_vence text,
   tecno_vence text,
   destacado boolean not null default false,

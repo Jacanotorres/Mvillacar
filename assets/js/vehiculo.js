@@ -7,6 +7,29 @@ function specRow(label, value){
   return "<tr><td>" + label + "</td><td>" + value + "</td></tr>";
 }
 
+/* Apartado de SOAT y tecnomecánica: fecha de vencimiento y cuántos días
+   faltan (se calcula el día en que se ve la página). */
+function documentosHTML(v){
+  const docs = [
+    { nombre: "SOAT", fecha: v.soatVence },
+    { nombre: "Tecnomecánica", fecha: v.tecnoVence }
+  ].filter(function(d){ return daysUntil(d.fecha) !== null; });
+  if(!docs.length) return "";
+  return '<div class="veh-block">' +
+    '<h2>SOAT y tecnomecánica</h2>' +
+    '<div class="doc-grid">' + docs.map(function(d){
+      const n = daysUntil(d.fecha);
+      const big = n >= 0 ? n : -n;
+      const label = n > 0 ? (n === 1 ? "día restante" : "días restantes") : (n === 0 ? "vence hoy" : (big === 1 ? "día vencido" : "días vencido"));
+      return '<div class="doc-card doc-' + vigenciaEstado(d.fecha) + '">' +
+        '<p class="doc-name">' + d.nombre + '</p>' +
+        '<p class="doc-days"><strong>' + (n === 0 ? "0" : big) + '</strong><span>' + label + '</span></p>' +
+        '<p class="doc-date">' + (n < 0 ? "Venció el " : "Vence el ") + formatDateLong(d.fecha) + '</p>' +
+      '</div>';
+    }).join("") + '</div>' +
+  '</div>';
+}
+
 async function renderVehicleDetail(){
   const root = document.getElementById("vehicle-detail");
   if(!root) return;
@@ -51,7 +74,7 @@ async function renderVehicleDetail(){
   /* Título, año y precio: en escritorio van en la columna lateral; en
      celular se muestran debajo de las fotos (veh-mobile-summary). */
   const summaryHTML =
-    '<div class="veh-quick-specs"><span>' + v.modelo + '</span></div>' +
+    '<div class="veh-quick-specs">' + vehicleSpecsHTML(v) + '</div>' +
     '<div class="veh-price-wrap"><span class="veh-price">' + formatPrice(v.precio) + '</span></div>';
 
   root.innerHTML =
@@ -75,10 +98,15 @@ async function renderVehicleDetail(){
           '<h2>Información del vehículo</h2>' +
           '<table class="spec-table">' +
             specRow("Marca", v.marca) +
-            specRow("Modelo", v.linea) +
+            specRow("Línea", v.linea) +
             specRow("Año", v.modelo) +
+            specRow("Kilometraje", (v.km !== null && v.km !== undefined) ? formatKm(v.km) : "") +
+            specRow("Color", v.color) +
+            specRow("Último dígito de la placa", v.placaDigito) +
           '</table>' +
         '</div>' +
+
+        documentosHTML(v) +
       '</div>' +
 
       '<aside class="veh-sidebar">' +

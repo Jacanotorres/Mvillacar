@@ -87,6 +87,7 @@ create table public.vehicles (
   placa text unique,
   descripcion text,
   placa_digito text,             -- último dígito de la placa
+  transmision text,
   soat_vence text,
   tecno_vence text,
   destacado boolean not null default false,

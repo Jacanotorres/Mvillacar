@@ -12,7 +12,7 @@
 const WHATSAPP_NUMBER = "573186651831";             // solo dígitos, con indicativo del país
 const CONTACT_PHONE_DISPLAY = "+57 318 665 1831";  // como se muestra en el sitio
 const CONTACT_EMAIL = "";
-const CONTACT_ADDRESS = "C.C. Unicentro Cali, torre de parqueaderos (arriba de los Cars), espacio comercial 143 · Cra. 100 #5-169, Cali";
+const CONTACT_ADDRESS = "C.C. Unicentro Cali, torre de parqueaderos (arriba de los SuperKarts), espacio comercial 143 · Cra. 100 #5-169, Cali";
 const CONTACT_HOURS = "Lunes a viernes, 8:00 a.m. – 6:00 p.m. · Sábados, 8:00 a.m. – 3:30 p.m.";
 
 const SOCIAL_LINKS = {

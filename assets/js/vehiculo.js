@@ -87,13 +87,6 @@ async function renderVehicleDetail(){
           summaryHTML +
         '</div>' +
 
-        (v.descripcion
-          ? '<div class="veh-block">' +
-              '<h2>Descripción</h2>' +
-              '<p class="veh-desc" id="veh-desc"></p>' +
-            '</div>'
-          : "") +
-
         '<div class="veh-block">' +
           '<h2>Información del vehículo</h2>' +
           '<table class="spec-table">' +
@@ -102,11 +95,22 @@ async function renderVehicleDetail(){
             specRow("Año", v.modelo) +
             specRow("Kilometraje", (v.km !== null && v.km !== undefined) ? formatKm(v.km) : "") +
             specRow("Color", v.color) +
+            specRow("Cilindraje", v.cilindraje) +
+            specRow("Transmisión", v.transmision) +
+            specRow("Combustible", v.combustible) +
             specRow("Último dígito de la placa", v.placaDigito) +
           '</table>' +
         '</div>' +
 
         documentosHTML(v) +
+
+        /* La descripción (accesorios y demás) va al final, después de los datos */
+        (v.descripcion
+          ? '<div class="veh-block">' +
+              '<h2>Accesorios y descripción</h2>' +
+              '<p class="veh-desc" id="veh-desc"></p>' +
+            '</div>'
+          : "") +
       '</div>' +
 
       '<aside class="veh-sidebar">' +

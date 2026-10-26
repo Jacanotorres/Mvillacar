@@ -78,6 +78,24 @@
             <div><label for="v-modelo">Año</label><input id="v-modelo" type="number" required min="1950" max="2100" placeholder="Ej: 2022"></div>
             <div><label for="v-km">Kilometraje</label><input id="v-km" type="number" required min="0" placeholder="Ej: 45000"></div>
             <div><label for="v-color">Color</label><input id="v-color" type="text" required placeholder="Ej: Gris"></div>
+            <div><label for="v-cilindraje">Cilindraje</label><input id="v-cilindraje" type="text" placeholder="Ej: 2.000 cc"></div>
+            <div><label for="v-transmision">Transmisión</label>
+              <select id="v-transmision">
+                <option value="">Elige</option>
+                <option>Automática</option>
+                <option>Mecánica</option>
+              </select>
+            </div>
+            <div><label for="v-combustible">Combustible</label>
+              <select id="v-combustible">
+                <option value="">Elige</option>
+                <option>Gasolina</option>
+                <option>Diésel</option>
+                <option>Híbrido</option>
+                <option>Eléctrico</option>
+                <option>Gas y gasolina</option>
+              </select>
+            </div>
             <div><label for="v-precio">Precio</label><input id="v-precio" type="number" required min="0" placeholder="Ej: 85000000"></div>
             <div><label for="v-tecno">Tecnomecánica (vence)</label><input id="v-tecno" type="date"></div>
             <div><label for="v-soat">SOAT (vence)</label><input id="v-soat" type="date"></div>
@@ -290,6 +308,9 @@
     document.getElementById("v-placa").value = v ? v.placaDigito : "";
     document.getElementById("v-km").value = v && v.km !== null && v.km !== undefined ? v.km : "";
     document.getElementById("v-color").value = v ? v.color : "";
+    document.getElementById("v-cilindraje").value = v ? v.cilindraje : "";
+    document.getElementById("v-transmision").value = v ? v.transmision : "";
+    document.getElementById("v-combustible").value = v ? v.combustible : "";
     document.getElementById("v-tecno").value = v ? v.tecnoVence : "";
     document.getElementById("v-soat").value = v ? v.soatVence : "";
     document.getElementById("v-descripcion").value = v ? v.descripcion : "";
@@ -334,6 +355,9 @@
       placa_digito: document.getElementById("v-placa").value,
       km: parseInt(document.getElementById("v-km").value, 10),
       color: document.getElementById("v-color").value.trim(),
+      cilindraje: document.getElementById("v-cilindraje").value.trim() || null,
+      transmision: document.getElementById("v-transmision").value || null,
+      combustible: document.getElementById("v-combustible").value || null,
       tecno_vence: document.getElementById("v-tecno").value || null,
       soat_vence: document.getElementById("v-soat").value || null,
       descripcion: document.getElementById("v-descripcion").value.trim() || null
@@ -352,7 +376,9 @@
     }
     if(error){
       /* Si falta correr supabase-actualizacion-datos-vehiculos.sql, se avisa claro */
-      const msg = /placa_digito/.test(error.message)
+      const msg = /transmision/.test(error.message)
+        ? "Falta actualizar la base de datos: corre el archivo supabase-actualizacion-transmision.sql en Supabase (proyecto de MVillacar)."
+        : /placa_digito/.test(error.message)
         ? "Falta actualizar la base de datos: corre el archivo supabase-actualizacion-datos-vehiculos.sql en Supabase."
         : error.message;
       alert("No se pudo guardar: " + msg);

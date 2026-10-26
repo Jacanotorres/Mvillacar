@@ -2,9 +2,11 @@
    MVillacar — ficha individual de vehículo
    ========================================================= */
 
+/* Todas las filas de la ficha se muestran siempre; si el dato no se ha
+   llenado en el panel, aparece "—". */
 function specRow(label, value){
-  if(value === undefined || value === null || value === "") return "";
-  return "<tr><td>" + label + "</td><td>" + value + "</td></tr>";
+  const empty = value === undefined || value === null || value === "";
+  return "<tr><td>" + label + "</td><td>" + (empty ? '<span class="spec-empty">—</span>' : value) + "</td></tr>";
 }
 
 /* Apartado de SOAT y tecnomecánica: fecha de vencimiento y cuántos días

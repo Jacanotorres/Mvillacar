@@ -39,6 +39,7 @@
 
     <div class="panel-tabs">
       <button class="panel-tab active" data-tab="inventario">Inventario</button>
+      <button class="panel-tab" data-tab="solicitudes">Solicitudes <span class="tab-badge" id="sol-badge" hidden></span></button>
       <button class="panel-tab" data-tab="equipo" id="tab-btn-equipo" hidden>Equipo</button>
       <button class="panel-tab" data-tab="clientes" id="tab-btn-clientes" hidden>Clientes felices</button>
       <button class="panel-tab" data-tab="galeria" id="tab-btn-galeria" hidden>Galería</button>
@@ -166,6 +167,18 @@
       </div>
     </div>
 
+
+    <!-- ===================== SOLICITUDES DE VENTA ===================== -->
+    <div class="panel-section" id="tab-solicitudes">
+      <div class="panel-card">
+        <div class="panel-header">
+          <h3 style="margin:0;">Personas que quieren vender su carro</h3>
+          <button class="btn btn-ghost btn-sm" id="btn-reload-solicitudes">Actualizar</button>
+        </div>
+        <p class="form-note">Lo que llenaron en "Vende tu carro", de la más reciente a la más antigua.</p>
+        <div class="sol-list" id="sol-list"><p class="panel-empty">Cargando...</p></div>
+      </div>
+    </div>
 
     <!-- ===================== GALERÍA ===================== -->
     <div class="panel-section" id="tab-galeria">
@@ -859,8 +872,107 @@
   });
   wireDropZone(document.getElementById("g-drop"), galleryInput, function(f){ return isImage(f) || isVideo(f); }, addGalleryFiles);
 
+  /* =========================================================
+     SOLICITUDES DE "VENDE TU CARRO"
+     Lo que escribe el visitante se muestra como texto (esc), nunca como HTML.
+     ========================================================= */
+  function esc(v){
+    return String(v === null || v === undefined ? "" : v)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  /* "hace 5 minutos", "hace 3 horas", "ayer", "hace 2 semanas"... */
+  function haceCuanto(iso){
+    const seg = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 1000));
+    const min = Math.round(seg / 60), h = Math.round(seg / 3600), d = Math.floor(seg / 86400);
+    if(seg < 60) return "hace un momento";
+    if(min < 60) return "hace " + min + (min === 1 ? " minuto" : " minutos");
+    if(h < 24) return "hace " + h + (h === 1 ? " hora" : " horas");
+    if(d === 1) return "ayer";
+    if(d < 7) return "hace " + d + " días";
+    if(d < 30){ const w = Math.floor(d / 7); return "hace " + w + (w === 1 ? " semana" : " semanas"); }
+    if(d < 365){ const m = Math.floor(d / 30); return "hace " + m + (m === 1 ? " mes" : " meses"); }
+    const y = Math.floor(d / 365); return "hace " + y + (y === 1 ? " año" : " años");
+  }
+
+  function fechaHora(iso){
+    return new Date(iso).toLocaleString("es-CO", { day: "numeric", month: "long", year: "numeric", hour: "numeric", minute: "2-digit" });
+  }
+
+  /* Celular para WhatsApp: solo dígitos; si es un celular colombiano de 10
+     dígitos se le antepone el 57. */
+  function waNumero(cel){
+    const d = String(cel || "").replace(/\D/g, "");
+    if(d.length === 10 && d[0] === "3") return "57" + d;
+    return d;
+  }
+
+  async function loadSolicitudes(){
+    const list = document.getElementById("sol-list");
+    const badge = document.getElementById("sol-badge");
+    const { data, error } = await supabaseClient
+      .from("vende_tu_carro")
+      .select("*")
+      .order("created_at", { ascending: false });
+    if(error){
+      list.innerHTML = '<p class="panel-empty">No se pudieron cargar las solicitudes: ' + esc(error.message) + '</p>';
+      return;
+    }
+    /* Las de los últimos 7 días se cuentan en la pestaña */
+    const recientes = data.filter(function(r){ return Date.now() - new Date(r.created_at).getTime() < 7 * 86400000; }).length;
+    badge.textContent = recientes;
+    badge.hidden = recientes === 0;
+
+    if(data.length === 0){
+      list.innerHTML = '<p class="panel-empty">Todavía no hay solicitudes. Cuando alguien llene "Vende tu carro" aparecerá aquí.</p>';
+      return;
+    }
+    list.innerHTML = data.map(function(r){
+      const carro = [r.marca, r.linea, r.modelo].filter(Boolean).join(" ");
+      const datos = [
+        ["Kilometraje", r.kilometraje !== null && r.kilometraje !== undefined ? formatKm(r.kilometraje) : ""],
+        ["Transmisión", r.transmision],
+        ["Color", r.color],
+        ["Placa", r.placa],
+        ["Ciudad", r.ciudad],
+        ["Precio esperado", r.precio_esperado]
+      ].filter(function(x){ return x[1] !== null && x[1] !== undefined && x[1] !== ""; });
+      const nuevo = Date.now() - new Date(r.created_at).getTime() < 86400000;
+      const wa = waNumero(r.celular);
+      return '<article class="sol-card' + (nuevo ? ' sol-nueva' : '') + '">' +
+        '<div class="sol-top">' +
+          '<div><p class="sol-nombre">' + esc(r.nombre) + (nuevo ? ' <span class="sol-tag">Nueva</span>' : '') + '</p>' +
+          '<p class="sol-carro">' + esc(carro) + '</p></div>' +
+          '<div class="sol-cuando"><strong>' + haceCuanto(r.created_at) + '</strong><span>' + fechaHora(r.created_at) + '</span></div>' +
+        '</div>' +
+        '<dl class="sol-datos">' + datos.map(function(x){
+          return '<div><dt>' + x[0] + '</dt><dd>' + esc(x[1]) + '</dd></div>';
+        }).join("") + '</dl>' +
+        '<div class="panel-actions">' +
+          (wa ? '<a class="btn btn-green btn-sm" target="_blank" rel="noopener" href="' + waLinkTo(wa, "Hola " + r.nombre + ", te escribimos de MVillacar por tu " + carro + ".") + '">WhatsApp ' + esc(r.celular) + '</a>' : '') +
+          (wa ? '<a class="btn btn-ghost btn-sm" href="tel:+' + wa + '">Llamar</a>' : '') +
+          (isAdmin ? '<button class="btn btn-ghost btn-sm" data-del-sol="' + esc(r.id) + '">Eliminar</button>' : '') +
+        '</div>' +
+      '</article>';
+    }).join("");
+
+    list.querySelectorAll("[data-del-sol]").forEach(function(btn){
+      btn.addEventListener("click", async function(){
+        if(!confirm("¿Eliminar esta solicitud? Esta acción no se puede deshacer.")) return;
+        const { error } = await supabaseClient.from("vende_tu_carro").delete().eq("id", btn.getAttribute("data-del-sol"));
+        if(error){ alert("No se pudo eliminar: " + error.message); return; }
+        await loadSolicitudes();
+      });
+    });
+  }
+  document.getElementById("btn-reload-solicitudes").addEventListener("click", loadSolicitudes);
+  /* "hace X" se recalcula cada minuto mientras el panel esté abierto */
+  setInterval(function(){ if(document.getElementById("tab-solicitudes").classList.contains("active")) loadSolicitudes(); }, 60000);
+
   /* ---------- Carga inicial ---------- */
   await loadVehicles();
+  await loadSolicitudes();
   if(isAdmin){
     await loadTeam();
     await loadHappyClients();

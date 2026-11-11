@@ -1163,3 +1163,25 @@ footer.site::before{content:"";position:absolute;left:0;right:0;top:0;height:3px
   font-family:var(--font-body);font-size:15px;background:var(--ink);color:var(--cream);
 }
 .spec-table .spec-empty{color:var(--dim-on-dark);font-weight:400;}
+
+/* ---------- Panel: solicitudes de "Vende tu carro" ---------- */
+.tab-badge{display:inline-block;min-width:20px;padding:1px 7px;margin-left:6px;background:var(--m-red);color:#fff;font-style:normal;font-size:12px;line-height:18px;text-align:center;}
+.sol-list{display:grid;gap:14px;margin-top:18px;}
+.sol-card{position:relative;background:var(--ink);border:1px solid var(--line);padding:18px 20px 18px 24px;}
+.sol-card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--line);}
+.sol-card.sol-nueva::before{background:var(--stripes);background:linear-gradient(180deg,#EA0122 0 33.33%,#003DA4 33.33% 66.66%,#2178FF 66.66% 100%);}
+.sol-top{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:flex-start;}
+.sol-nombre{font-family:var(--font-display);font-style:italic;font-weight:700;font-size:20px;color:#fff;text-transform:uppercase;}
+.sol-tag{display:inline-block;margin-left:6px;padding:2px 8px;background:var(--m-red);color:#fff;font-size:11px;letter-spacing:1px;vertical-align:middle;}
+.sol-carro{color:var(--accent-light);font-weight:600;margin-top:2px;}
+.sol-cuando{text-align:right;display:flex;flex-direction:column;}
+.sol-cuando strong{color:#fff;font-size:15px;}
+.sol-cuando span{color:var(--muted-on-dark);font-size:12.5px;}
+.sol-datos{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px 18px;margin:14px 0 14px;}
+.sol-datos dt{font-size:11.5px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted-on-dark);}
+.sol-datos dd{margin:2px 0 0;color:var(--cream);overflow-wrap:anywhere;}
+@media (max-width:700px){
+  .sol-cuando{text-align:left;}
+  .sol-card .panel-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .sol-card .panel-actions .btn{justify-content:center;}
+}

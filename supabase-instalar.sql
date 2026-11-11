@@ -42,6 +42,11 @@ create policy "Cualquiera puede enviar el formulario"
   to anon
   with check (true);
 
+create policy "Usuarios con sesion tambien pueden enviar el formulario"
+  on public.vende_tu_carro for insert
+  to authenticated
+  with check (true);
+
 -- 1. Perfiles: extiende auth.users con el rol de cada usuario.
 create table public.profiles (
   id uuid primary key references auth.users(id) on delete cascade,
@@ -194,6 +199,18 @@ create policy "Lectura publica fotos clientes"
   on storage.objects for select
   to public
   using (bucket_id = 'clientes');
+
+-- 6b. Solicitudes de "Vende tu carro": las ven admin y asesor en el panel;
+--     solo admin las borra.
+create policy "Admin y asesor ven las solicitudes de venta"
+  on public.vende_tu_carro for select
+  to authenticated
+  using (get_my_role() in ('admin','asesor'));
+
+create policy "Solo admin borra solicitudes de venta"
+  on public.vende_tu_carro for delete
+  to authenticated
+  using (get_my_role() = 'admin');
 
 -- 7. Permisos de subida: solo Admin o Asesor con sesión iniciada.
 create policy "Admin y asesor suben fotos de vehiculos"
